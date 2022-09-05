@@ -2,19 +2,20 @@
 
 class Route
 {
-    protected $definedRoutes = [
+    private static $definedRoutes = [
+        "" => "./resources/view/index.php",
         "login" => "./resources/view/auth/frmLogin.html",
         "doLogin" => "./app/controllers/auth/login.php",
+        "admin" => "./resources/view/layout/admin/master.php",
     ];
 
-    public function handle(string $uri)
+    public static function handle(string $uri)
     {
         if(empty($uri)){
-            echo "bủh";
-            return;
+            $uri = "";
         }
 
-        foreach($this->definedRoutes as $definedRoute => $view){
+        foreach(static::$definedRoutes as $definedRoute => $view){
             // self:: để gọi hằng trong class
             if(!strcmp($definedRoute, $uri)){
                 include($view);

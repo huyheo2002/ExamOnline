@@ -1,0 +1,27 @@
+<?php
+
+?>
+
+<div class="body__sidebar">
+    <div class="body__sidebar_logo">                    
+        <i class="fa-solid fa-house-chimney"></i>
+    </div>
+    <ul class="body__sidebar_list">
+        <li><a>
+            <i class="fa-solid fa-bars"></i>
+            <p class="body__sidebar_text">Quản lý nhóm quyền</p>
+        </a></li>
+        <li><a>
+            <i class="fa-solid fa-bars"></i>
+            <p class="body__sidebar_text">Quản lý quyền</p>
+        </a></li>
+        <li><a>
+            <i class="fa-solid fa-bars"></i>
+            <p class="body__sidebar_text">Quản lý người dùng</p>
+        </a></li>
+        <li><a>
+            <i class="fa-solid fa-bars"></i>
+            <p class="body__sidebar_text">Quản lý vai trò</p>
+        </a></li>
+    </ul>
+</div>

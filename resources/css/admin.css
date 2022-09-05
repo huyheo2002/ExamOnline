@@ -1,0 +1,151 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --heightHeader: 60px;
+    --heightFooter: 200px;
+}
+
+#main{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* body */
+.body{
+    /* height: 400px; */
+    position: relative;
+    top: 0;
+    /* top: 60px; */
+    background: #fff;
+    display: flex;
+    z-index: 2;
+}
+
+/* sidebar */
+.body__sidebar{
+    width: 20%;
+    background-color: yellow;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    z-index: 5;
+}
+
+.body__sidebar_logo{
+    height: 60px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.body__sidebar_logo i{
+    font-size: 60px;
+}
+
+.body__sidebar_list{
+    list-style-type: none;
+}
+
+.body__sidebar_list li{
+    cursor: pointer;
+}
+
+.body__sidebar_list li:hover a{
+    background-color: lightblue;
+    color: #fff;
+}
+
+
+.body__sidebar_list a{
+    text-decoration: none;
+    display: flex;
+    padding: 10px 0;
+    padding-left: 15px;
+    transition: all linear 0.25s;
+}
+
+.body__sidebar_list a i{
+    font-size: 22px;
+}
+
+.body__sidebar_list a p{
+    height: 22px;
+    line-height: 22px;
+    margin-left: 15px;
+}
+
+/* content */
+.body__content{
+    width: 80%;
+    margin-left: 20%;
+    background-color: aqua;
+    height: 1000px;
+    font-size: larger;
+    font-weight: bold;
+    position: relative;
+}
+
+.content__header{
+    background-color: red;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.content__main{
+    margin-top: 60px;
+    padding: 15px;
+    display: none;
+}
+
+/* css table */
+table{
+    width: 100%;
+    margin: 20px 0;
+}
+
+table, th, td{
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+th, td{
+    background-color: blue;
+    padding: 5px 0;
+}
+
+td{
+    padding: 5px;
+}
+
+/* css button */
+.content__listBtn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+button{
+    padding: 10px 20px;
+    margin-left: 15px;
+    border-radius: 8px;
+    border: 1px solid #000;
+    transition: all linear 0.25s;
+}
+
+button:hover{
+    background-color: #ccc;
+}
+
+.show{
+    display: block;
+}
