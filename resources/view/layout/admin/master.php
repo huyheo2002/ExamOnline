@@ -26,12 +26,7 @@
                 ?>
                 <div class="content__main show">
                     <?php
-                        if(isset($_GET["control"])){
-                            $className = $_GET["control"];
-                            require_once "./app/controllers/admin/".$className.".php";
-                            $obj = new $className();
-                            $obj->handle($_GET["action"] ?? "");
-                        }
+                        
                     ?>
                     <!-- <h2 class="content__title">this is title1</h2>
                     <table>

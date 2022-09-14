@@ -3,7 +3,13 @@ DROP TABLE IF EXISTS `permission_groups`;
 DROP TABLE IF EXISTS `roles_permissions`;
 DROP TABLE IF EXISTS `roles`;
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `answers`;
+DROP TABLE IF EXISTS `exam_questions`;
+DROP TABLE IF EXISTS `exams`;
+DROP TABLE IF EXISTS `questions`;
+DROP TABLE IF EXISTS `category`;
 
+-- nhóm quyền
 CREATE TABLE `permission_groups`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) UNIQUE NOT NULL,
@@ -12,6 +18,7 @@ CREATE TABLE `permission_groups`  (
 --   PRIMARY KEY (`id`) USING BTREE,
 );
 
+-- phân quyền
 CREATE TABLE `permissions`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) UNIQUE NOT NULL,
@@ -22,6 +29,7 @@ CREATE TABLE `permissions`  (
   FOREIGN KEY (`permisstion_group_id`) REFERENCES permission_groups(`id`)
 );
 
+-- kết nối nhiều :V
 CREATE TABLE `roles_permissions`  (
   `permission_id` int(10),
   `role_id` int(10),
@@ -29,6 +37,7 @@ CREATE TABLE `roles_permissions`  (
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- vai trò
 CREATE TABLE `roles`  (
   `id` int(10) PRIMARY KEY,
   `name` varchar(255),
@@ -36,6 +45,7 @@ CREATE TABLE `roles`  (
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- người dùng
 CREATE TABLE `users`  (
   `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(50),
@@ -54,6 +64,45 @@ CREATE TABLE `users`  (
   `social_nickname` varchar(50) NULL,
   `social_avatar` varchar(50) NULL,
   `description` varchar(50) NULL
+);
+
+-- môn học
+CREATE TABLE `category` (
+  `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(50)
+);
+
+-- câu hỏi
+CREATE TABLE `questions` (
+  `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `content` varchar(255),
+  `category_id` int(10) UNSIGNED,
+  FOREIGN KEY (`category_id`) REFERENCES category(`id`)
+);
+
+-- đề thi
+CREATE TABLE `exams` (
+  `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(255),
+  `category_id` int(10) UNSIGNED,
+  FOREIGN KEY (`category_id`) REFERENCES category(`id`)
+);
+
+-- câu hỏi đề thi (ngân hàng câu hỏi :v)
+CREATE TABLE `exam_questions` (
+  `exam_id` int(10) UNSIGNED,
+  `question_id` int(10) UNSIGNED,
+  FOREIGN KEY (`question_id`) REFERENCES questions(`id`),
+  FOREIGN KEY (`exam_id`) REFERENCES exams(`id`)
+);
+
+-- câu trả lời
+CREATE TABLE `answers` (
+  `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `content` varchar(255),
+  `correct` Boolean,
+  `question_id` int(10) UNSIGNED,
+  FOREIGN KEY (`question_id`) REFERENCES questions(`id`)
 );
 
 
