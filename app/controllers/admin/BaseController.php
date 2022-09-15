@@ -16,19 +16,25 @@ abstract class BaseController
                 $this->create();
                 break;
             case !strcmp($action, "store"):
-                $this->store();
+                $formData = array_merge(array(), $_POST);
+                $this->store($formData);
                 break;
             case !strcmp($action, "show"):
-                $this->show();
+                $id = $_GET["id"] ?? 0;
+                $this->show($id);
                 break;
             case !strcmp($action, "edit"):
-                $this->edit();
+                $id = $_GET["id"] ?? 0;
+                $this->edit($id);
                 break;
             case !strcmp($action, "update"):
-                $this->update();
+                $id = $_GET["id"] ?? 0;
+                $formData = array_merge(array(), $_POST);
+                $this->update($id, $formData);
                 break;
             case !strcmp($action, "delete"):
-                $this->delete();
+                $id = $_GET["id"] ?? 0;
+                $this->delete($id);
                 break;
             default:
                 echo "cười :V";
@@ -37,9 +43,9 @@ abstract class BaseController
 
     abstract public function index();
     abstract public function create();
-    abstract public function store();
-    abstract public function show();
-    abstract public function edit();
-    abstract public function update();
-    abstract public function delete();
+    abstract public function store($formData);
+    abstract public function show($id);
+    abstract public function edit($id);
+    abstract public function update($id, $formData);
+    abstract public function delete($id);
 }

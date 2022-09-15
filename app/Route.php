@@ -5,14 +5,14 @@ class Route
     private $definedRoutes = [];
     
     public function handle(string $uri)
-    {        
+    {                
         foreach($this->definedRoutes as $key => $func) {
             if (!strcmp($uri, $key)) {
                 $func(); 
                 return true;               
-            }
+            }            
         }
-    
+        
         return false;
     }
 

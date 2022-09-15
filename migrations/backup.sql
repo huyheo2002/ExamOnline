@@ -66,7 +66,7 @@ CREATE TABLE `users`  (
   `description` varchar(50) NULL
 );
 
--- môn học
+-- môn học (tạo cứng :v)
 CREATE TABLE `category` (
   `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(50)

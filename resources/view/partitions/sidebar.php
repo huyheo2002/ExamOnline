@@ -4,7 +4,7 @@
 
 <div class="body__sidebar">
     <div class="body__sidebar_logo">                    
-        <i class="fa-solid fa-house-chimney"></i>
+        <img src="./resources/images/main/logo/logoHuyExam-nobg.png" alt="">
     </div>
     <ul class="body__sidebar_list">
         <li><a>
