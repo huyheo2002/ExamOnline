@@ -20,6 +20,20 @@ class Route
     {
         $this->definedRoutes[$uri] = $callback;
     }
+
+    public function resource(string $uri, string $className) 
+    {
+        require_once "./app/controllers/admin/".$className.".php";
+        $obj = new $className();
+
+        $this->set($uri.".index", fn() => $obj->handle("index"));
+        $this->set($uri.".show", fn() => $obj->handle("show"));
+        $this->set($uri.".create", fn() => $obj->handle("create"));
+        $this->set($uri.".store", fn() => $obj->handle("store"));
+        $this->set($uri.".edit", fn() => $obj->handle("edit"));
+        $this->set($uri.".update", fn() => $obj->handle("update"));
+        $this->set($uri.".delete", fn() => $obj->handle("delete"));
+    }
     
     public static function redirect($url, $statusCode = 303)
     {
