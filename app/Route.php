@@ -2,11 +2,11 @@
 
 class Route
 {
-    private $definedRoutes = [];
+    static private $definedRoutes = [];
     
-    public function handle(string $uri)
+    static public function handle(string $uri)
     {                
-        foreach($this->definedRoutes as $key => $func) {
+        foreach(self::$definedRoutes as $key => $func) {
             if (!strcmp($uri, $key)) {
                 $func(); 
                 return true;               
@@ -16,23 +16,23 @@ class Route
         return false;
     }
 
-    public function set(string $uri, $callback)
+    static public function set(string $uri, $callback)
     {
-        $this->definedRoutes[$uri] = $callback;
+        self::$definedRoutes[$uri] = $callback;
     }
 
-    public function resource(string $uri, string $className) 
+    static public function resource(string $uri, string $className) 
     {
         require_once "./app/controllers/admin/".$className.".php";
         $obj = new $className();
 
-        $this->set($uri.".index", fn() => $obj->handle("index"));
-        $this->set($uri.".show", fn() => $obj->handle("show"));
-        $this->set($uri.".create", fn() => $obj->handle("create"));
-        $this->set($uri.".store", fn() => $obj->handle("store"));
-        $this->set($uri.".edit", fn() => $obj->handle("edit"));
-        $this->set($uri.".update", fn() => $obj->handle("update"));
-        $this->set($uri.".delete", fn() => $obj->handle("delete"));
+        self::set($uri.".index", fn() => $obj->handle("index"));
+        self::set($uri.".show", fn() => $obj->handle("show"));
+        self::set($uri.".create", fn() => $obj->handle("create"));
+        self::set($uri.".store", fn() => $obj->handle("store"));
+        self::set($uri.".edit", fn() => $obj->handle("edit"));
+        self::set($uri.".update", fn() => $obj->handle("update"));
+        self::set($uri.".delete", fn() => $obj->handle("delete"));
     }
     
     public static function redirect($url, $statusCode = 303)
@@ -46,6 +46,17 @@ class Route
         return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
     }
 
+    public static function path($routeName, $data = [])
+    {
+        $url = self::root() . "?page=" . $routeName;
+        foreach ($data as $key => $value) {
+            $url .= "&" . $key . "=" . $value;
+        }
+
+        return $url;
+    }
+
+    
     
 
 }
