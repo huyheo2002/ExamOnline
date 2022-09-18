@@ -24,35 +24,45 @@
                     ?>
                 <div class="content__main show">
                     <div class="content__wrap">
-                        <h2 class="content__title">Hiển thị nhóm quyền</h2>                    
+                        <h2 class="content__title">Hiển thị quyền</h2>                    
                         <?php
-                            if(!empty($permissionGroup)) {                            
+                            if(!empty($permission)) {                            
                                                         
                         ?>
                             <!-- form ảo :v -->
                             <div class="formClone">
                                 <div class="item">
                                     <label for="">Id</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["id"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permission["id"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tên :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["name"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permission["name"] ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="">Khóa</label>
+                                    <input type="text" placeholder="<?= $permission["key"] ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="">Nhóm :</label>
+                                    <input type="text" placeholder="<?= !empty($permission["permission_group"]) ? $permission["permission_group"]["name"] : $permission["permission_group_id"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tạo lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["created_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permission["created_at"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Cập nhật lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["updated_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permission["updated_at"] ?>" disabled>
                                 </div>
                                                         
                         <?php 
                             }
                         ?>
                                 <div class="content__listBtn flex-start">
-                                    <button class="content__btnExit btn-margin">Exit</button>                    
+                                    <button class="content__btnExit btn-margin">
+                                        <a href="<?= Route::path('permission.index') ?>">Trở về</a>
+                                    </button>                    
                                 </div>
                             </div>
                     </div>

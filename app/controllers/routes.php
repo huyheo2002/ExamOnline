@@ -28,3 +28,7 @@ Route::set("admin", function() {
 
 Route::resource("permission-group", "PermissionGroupController");
 Route::resource("permission", "PermissionController");
+Route::resource("user", "UserController");
+Route::resource("role", "RoleController");
+
+

@@ -24,8 +24,8 @@
                     ?>
                 <div class="content__main show">
                     <div class="content__wrap">
-                        <h2 class="content__title">Thêm mới nhóm quyền</h2>
-                        <form action="<?= Route::path('permission-group.store') ?>" method="POST">                    
+                        <h2 class="content__title">Thêm mới người dùng</h2>
+                        <form action="<?= Route::path('user.store') ?>" method="POST">                    
                             <div class="item">
                                 <label for="id">ID :</label>
                                 <input type="text" name="id" id="id" disabled placeholder="Không cần nhập dữ liệu ở đây">
@@ -46,7 +46,7 @@
                     
                             <div class="content__listBtn">
                                 <input type="submit" value="Tạo mới" class="content__btnAdd">
-                                <a class="content__btnExit" href="#">Trở về</a>                    
+                                <a class="content__btnExit" href="<?= Route::path('user.index') ?>">Trở về</a>                    
                             </div>
                         </form>
                     </div>

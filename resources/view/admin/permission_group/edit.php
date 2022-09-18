@@ -51,7 +51,7 @@ require_once "./app/Route.php";
 
                                 <div class="content__listBtn">
                                     <input type="submit" value="Cập nhật" class="content__btnAdd">
-                                    <a class="content__btnExit" href="#">Trở về</a>
+                                    <a class="content__btnExit" href="<?= Route::path('permission-group.index') ?>">Trở về</a>
                                 </div>
                             </form>
 

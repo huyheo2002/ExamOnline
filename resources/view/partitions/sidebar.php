@@ -15,11 +15,11 @@
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý quyền</p>
         </a></li>
-        <li><a href="<?= Route::path('permission-group.create') ?>">
+        <li><a href="<?= Route::path('user.index') ?>">
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý người dùng</p>
         </a></li>
-        <li><a href="<?= Route::path('permission-group.create') ?>">
+        <li><a href="<?= Route::path('role.index') ?>">
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý vai trò</p>
         </a></li>

@@ -1,6 +1,5 @@
 <?php
     require_once "./app/Route.php";
-
 ?>
 
 <!DOCTYPE html>
@@ -24,8 +23,8 @@
                     ?>
                 <div class="content__main show">
                     <div class="content__wrap">
-                        <h2 class="content__title">Thêm mới nhóm quyền</h2>
-                        <form action="<?= Route::path('permission-group.store') ?>" method="POST">                    
+                        <h2 class="content__title">Thêm mới quyền</h2>
+                        <form action="<?= Route::path('permission.store') ?>" method="POST">                    
                             <div class="item">
                                 <label for="id">ID :</label>
                                 <input type="text" name="id" id="id" disabled placeholder="Không cần nhập dữ liệu ở đây">
@@ -33,6 +32,25 @@
                             <div class="item">
                                 <label for="name">Tên :</label>
                                 <input type="text" name="name" id="name">
+                            </div>
+                            <div class="item">
+                                <label for="key">Khóa :</label>
+                                <input type="text" name="key" id="key">
+                            </div>
+                            <div class="item">
+                                <label for="permission_group_id">Nhóm quyền</label>
+                                <!-- <input type="text" name="permission-group" id="permission-group"> -->
+                                <select name="permission_group_id" id="permission_group_id">
+                                    <?php 
+                                        if(!empty($permissionGroups)) {
+                                            foreach($permissionGroups as $permissionGroup) {                                                                                   
+                                    ?>
+                                            <option value="<?= $permissionGroup["id"] ?>"><?= $permissionGroup["name"] ?></option>                                    
+                                    <?php 
+                                            }
+                                        } 
+                                    ?>
+                                </select>
                             </div>
                             <div class="item">
                                 <label for="created_at">Tạo lúc :</label>
@@ -46,7 +64,7 @@
                     
                             <div class="content__listBtn">
                                 <input type="submit" value="Tạo mới" class="content__btnAdd">
-                                <a class="content__btnExit" href="#">Trở về</a>                    
+                                <a class="content__btnExit" href="<?= Route::path('permission.index') ?>">Trở về</a>                    
                             </div>
                         </form>
                     </div>

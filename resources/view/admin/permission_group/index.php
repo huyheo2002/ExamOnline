@@ -53,7 +53,9 @@ require_once "./app/Route.php";
                     </table>
                     <div class="content__listBtn">
                         <a href="<?= Route::path('permission-group.create') ?>" class="content__btnAdd">Thêm mới</a>
-                        <button class="content__btnExit">Thoát</button>                    
+                        <button class="content__btnExit">
+                            <a href="<?= Route::path('login') ?>">Thoát</a> 
+                        </button>                    
                     </div>
                 </div>
             </div>

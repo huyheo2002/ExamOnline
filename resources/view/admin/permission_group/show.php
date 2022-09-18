@@ -52,7 +52,9 @@
                             }
                         ?>
                                 <div class="content__listBtn flex-start">
-                                    <button class="content__btnExit btn-margin">Exit</button>                    
+                                    <button class="content__btnExit btn-margin">
+                                        <a href="<?= Route::path('permission-group.index') ?>">Trở về</a>   
+                                    </button>                                                        
                                 </div>
                             </div>
                     </div>

@@ -23,26 +23,28 @@ CREATE TABLE `permissions`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) UNIQUE NOT NULL,
   `key` varchar(255) UNIQUE NOT NULL,
-  `permisstion_group_id` int(10) UNSIGNED NOT NULL,
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (`permisstion_group_id`) REFERENCES permission_groups(`id`)
-);
-
--- kết nối nhiều :V
-CREATE TABLE `roles_permissions`  (
-  `permission_id` int(10),
-  `role_id` int(10),
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  FOREIGN KEY (`permission_group_id`) REFERENCES permission_groups(`id`)
 );
 
 -- vai trò
 CREATE TABLE `roles`  (
-  `id` int(10) PRIMARY KEY,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255),
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- kết nối nhiều :V
+CREATE TABLE `roles_permissions`  (
+  `permission_id` int(10) UNSIGNED,
+  `role_id` int(10) UNSIGNED,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`role_id`) REFERENCES roles(`id`),
+  FOREIGN KEY (`permission_id`) REFERENCES `permissions`(`id`)
 );
 
 -- người dùng
@@ -105,5 +107,9 @@ CREATE TABLE `answers` (
   FOREIGN KEY (`question_id`) REFERENCES questions(`id`)
 );
 
+-- insert
+-- permission_groups
+INSERT INTO `permission_groups` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, 'Quản lý sinh viên', current_timestamp(), NULL), (NULL, 'Quản lý đề thi', current_timestamp(), NULL);
 
-
+-- permission
+INSERT INTO `permissions` (`id`, `name`, `key`, `permission_group_id`, `created_at`, `updated_at`) VALUES (NULL, 'xem đề thi', 'views-exams', '2', current_timestamp(), NULL);

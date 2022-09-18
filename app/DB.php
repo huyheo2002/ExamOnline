@@ -45,20 +45,37 @@ class DB
         // $stmt->bindParam(2, $mail);
         // $stmt->bindParam(3, $age);
         $statement = DB::getConnection()->prepare($sql);
-
+        
+        // var_dump($statement);
+        // die;
         // đọc dữ liệu từ DB
         // PDO::FETCH_ASSOC: Trả về dữ liệu dạng mảng với key là tên của column (column của các table trong database)        
         $statement->setFetchMode(PDO::FETCH_ASSOC);
 
         // gán giá trị và thực thi truy vấn
         // FETCH_ASSOC Kiểu fetch này sẽ tạo ra một mảng kết hợp lập chỉ mục theo tên column (nghĩa là các key của mảng chính là tên của column)
-        $statement->execute($data);
+        $result = $statement->execute($data);
+        // debug
+        // self::bruh($statement);
+        if (!$result) {
+            // throw new Exception(self::$connection->errorInfo()[2]);
+            var_dump(self::$connection->errorInfo());
+            die;
+        }
+        
+        // $statement->execute($data);
         $result =[];
-
+        
         // Hiển thị kết quả, vòng lặp sau đây sẽ dừng lại khi đã duyệt qua toàn bộ kết quả trả về
         while($item = $statement->fetch()) {
             $result[]=$item; 
         }
         return $result;  
+    }
+
+    static public function bruh($statement) 
+    {
+        var_dump($statement->debugDumpParams());
+        die;
     }
 }

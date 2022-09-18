@@ -23,7 +23,7 @@ require_once "./app/Route.php";
                     include "./resources/view/partitions/header.php";
                     ?>
                 <div class="content__main show">
-                    <h2 class="content__title">Danh sách nhóm quyền</h2>
+                    <h2 class="content__title">Danh sách người dùng</h2>
                     <table>
                         <tr>
                             <th style="width: 10%">Id</th>
@@ -41,9 +41,9 @@ require_once "./app/Route.php";
                             <td><?= $permissionGroup["name"] ?></td>
                             <td class="list__action">
                                 <!-- test -->
-                                <a href="<?= Route::path('permission-group.show', ['id' => $permissionGroup['id']]) ?>">Hiển thị</a>
-                                <a href="<?= Route::path('permission-group.edit', ['id' => $permissionGroup['id']]) ?>">Chỉnh sửa</a>
-                                <a href="<?= Route::path('permission-group.delete', ['id' => $permissionGroup['id']]) ?>">Xóa</a>
+                                <a href="<?= Route::path('user.show', ['id' => $permissionGroup['id']]) ?>">Hiển thị</a>
+                                <a href="<?= Route::path('user.edit', ['id' => $permissionGroup['id']]) ?>">Chỉnh sửa</a>
+                                <a href="<?= Route::path('user.delete', ['id' => $permissionGroup['id']]) ?>">Xóa</a>
                             </td>
                         </tr>                        
                     <?php
@@ -52,8 +52,10 @@ require_once "./app/Route.php";
                     ?>
                     </table>
                     <div class="content__listBtn">
-                        <a href="<?= Route::path('permission-group.create') ?>" class="content__btnAdd">Thêm mới</a>
-                        <button class="content__btnExit">Thoát</button>                    
+                        <a href="<?= Route::path('user.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <button class="content__btnExit">
+                            <a href="<?= Route::path('login') ?>">Thoát</a> 
+                        </button>                    
                     </div>
                 </div>
             </div>

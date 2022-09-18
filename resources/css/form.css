@@ -74,6 +74,11 @@ form {
     text-decoration: none;
 }
 
+.content__btnExit a {
+    text-decoration: none;
+    color: #fff;
+}
+
 .content__listBtn .content__btnExit:hover , .content__listBtn .content__btnAdd:hover {
     background-image: linear-gradient(#51A9EE, #147BCD);
     border-color: #1482D0;
@@ -112,4 +117,27 @@ form {
 
 .content__btnExit.btn-margin {
     margin: 0;
+}
+
+/* permission_group */
+.permission__title {
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.permission__wrap {
+    display: flex;
+    align-items: center;
+}
+
+.permission__name {
+    min-width: 20%;
+}
+
+input[type="checkbox"] {
+    margin-right: 65%;
+    height: 100%;
+    margin-bottom: 0.5rem;
 }
