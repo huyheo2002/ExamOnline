@@ -26,24 +26,25 @@ require_once "./app/Route.php";
                     <h2 class="content__title">Danh sách người dùng</h2>
                     <table>
                         <tr>
-                            <th style="width: 10%">Id</th>
-                            <th style="width: 50%">Tên nhóm quyền</th>
-                            <th style="width: 40%">Hoạt động</th>
+                            <th style="width: 10%">Ảnh đại diện</th>
+                            <th style="width: 30%">Tên người dùng</th>
+                            <th style="width: 30%">Vai trò</th>
+                            <th style="width: 30%">Hoạt động</th>
                         </tr>
                     <?php
-                        if(!empty($permissionGroups)) {
-                            foreach ($permissionGroups as $permissionGroup) {
-                                
-                            
+                        if(!empty($users)) {
+                            foreach ($users as $user) {
+                                                            
                     ?>
                         <tr>
-                            <td><?= $permissionGroup["id"] ?></td>
-                            <td><?= $permissionGroup["name"] ?></td>
+                            <td><?= $user["avatar"] ?></td>
+                            <td><?= $user["name"] ?></td>
+                            <td><?= $user["role"]["name"] ?></td>
                             <td class="list__action">
                                 <!-- test -->
-                                <a href="<?= Route::path('user.show', ['id' => $permissionGroup['id']]) ?>">Hiển thị</a>
-                                <a href="<?= Route::path('user.edit', ['id' => $permissionGroup['id']]) ?>">Chỉnh sửa</a>
-                                <a href="<?= Route::path('user.delete', ['id' => $permissionGroup['id']]) ?>">Xóa</a>
+                                <a href="<?= Route::path('user.show', ['id' => $user['id']]) ?>">Hiển thị</a>
+                                <a href="<?= Route::path('user.edit', ['id' => $user['id']]) ?>">Chỉnh sửa</a>
+                                <a href="<?= Route::path('user.delete', ['id' => $user['id']]) ?>">Xóa</a>
                             </td>
                         </tr>                        
                     <?php

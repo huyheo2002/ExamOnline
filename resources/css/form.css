@@ -1,7 +1,3 @@
-.body__content {
-    height: 100vh;
-    overflow: hidden;
-}
 
 form {
     padding: 1.25rem;
@@ -130,14 +126,27 @@ form {
 .permission__wrap {
     display: flex;
     align-items: center;
+    margin-left: 15px;
+    margin-bottom: 10px;
 }
 
-.permission__name {
-    min-width: 20%;
+label.permission__name {
+    width: auto;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
+    transition: all linear 0.3s;
 }
 
-input[type="checkbox"] {
-    margin-right: 65%;
-    height: 100%;
-    margin-bottom: 0.5rem;
+input.permission_cb {
+    width: auto;
+    transform: scale(1.5);        
+    /* transform: translateY(-0.075em); */
 }
+
+input.permission_cb:hover ~ label.permission__name {
+    color: #007bff;
+}
+
+

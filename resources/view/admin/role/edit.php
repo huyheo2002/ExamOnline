@@ -31,7 +31,7 @@ require_once "./app/Route.php";
                         if (!empty($role)) {
 
                         ?>                        
-                            <form action="<?= Route::path('permission-group.update', ['id' => $role['id']]) ?>" method="POST">
+                            <form action="<?= Route::path('role.update', ['id' => $role['id']]) ?>" method="POST">
                                 <div class="item">
                                     <label for="id">Id :</label>
                                     <input value="<?= $role['id'] ?>" type="text" name="id" id="id" disabled>
@@ -39,6 +39,37 @@ require_once "./app/Route.php";
                                 <div class="item">
                                     <label for="name">Tên :</label>
                                     <input value="<?= $role['name'] ?>" type="text" name="name" id="name">
+                                </div>
+                                <?php 
+                                    $selectedPermissions = [];
+                                    if(!empty($role["permissions"])) {
+                                        $selectedPermissions = array_map(fn($permission) => $permission["id"] ?? 0, $role["permissions"]);
+                                    }                                    
+                                ?>
+                                <div class="item">
+                                    <label for="permission">Quyền :</label>
+                                    <div class="">
+                                        <?php
+                                        if (!empty($permissionGroups)) {
+                                            foreach ($permissionGroups as $permissionGroup) {
+                                        ?>
+                                                <h3 class="permission__title"><?= $permissionGroup["name"]?>; </h3>
+                                                <?php
+                                                if (!empty($permissionGroup["permissions"])) {
+                                                    foreach ($permissionGroup["permissions"] as $permission) {
+                                                ?>
+                                                    <div class="permission__wrap">
+                                                        <input class="permission_cb" type="checkbox" name="permission_ids[]" id="" value="<?= $permission["id"] ?>" <?= in_array($permission["id"], $selectedPermissions) ? "checked" : "" ?>>
+                                                        <label for="" class="permission__name"><?= $permission["name"] ?></label>
+                                                    </div>
+                                        <?php
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+
+                                    </div>
                                 </div>
                                 <div class="item">
                                     <label for="created_at">Tạo lúc :</label>
@@ -51,7 +82,7 @@ require_once "./app/Route.php";
 
                                 <div class="content__listBtn">
                                     <input type="submit" value="Cập nhật" class="content__btnAdd">
-                                    <a class="content__btnExit" href="#">Trở về</a>
+                                    <a class="content__btnExit" href="<?= Route::path('role.index') ?>">Trở về</a>
                                 </div>
                             </form>
 

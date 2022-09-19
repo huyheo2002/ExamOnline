@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS `permissions`;
-DROP TABLE IF EXISTS `permission_groups`;
-DROP TABLE IF EXISTS `roles_permissions`;
-DROP TABLE IF EXISTS `roles`;
-DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `answers`;
 DROP TABLE IF EXISTS `exam_questions`;
 DROP TABLE IF EXISTS `exams`;
 DROP TABLE IF EXISTS `questions`;
 DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `roles_permissions`;
+DROP TABLE IF EXISTS `roles`;
+DROP TABLE IF EXISTS `permissions`;
+DROP TABLE IF EXISTS `permission_groups`;
 
 -- nhóm quyền
 CREATE TABLE `permission_groups`  (
@@ -55,17 +55,9 @@ CREATE TABLE `users`  (
   `username` varchar(50),
   `password` varchar(50),
   `phone` varchar(50) NULL,
-  `address` varchar(50),
-  `school_id` int(10) NULL,
-  `type` int(10) NULL,
-  `parent_id` int(10) NULL,
-  `verified_at` TIMESTAMP NULL DEFAULT NULL,
-  `social_type` int(10),
-  `social_id` varchar(50) UNIQUE NULL,
-  `social_name` varchar(50) NULL,
-  `social_nickname` varchar(50) NULL,
-  `social_avatar` varchar(50) NULL,
-  `description` varchar(50) NULL
+  `role_id` int(10) UNSIGNED,
+  `avatar` varchar(255),
+  FOREIGN KEY (`role_id`) REFERENCES roles(`id`)
 );
 
 -- môn học (tạo cứng :v)
@@ -109,7 +101,86 @@ CREATE TABLE `answers` (
 
 -- insert
 -- permission_groups
-INSERT INTO `permission_groups` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, 'Quản lý sinh viên', current_timestamp(), NULL), (NULL, 'Quản lý đề thi', current_timestamp(), NULL);
+INSERT INTO `permission_groups` (`id`, `name`, `created_at`, `updated_at`) 
+VALUES 
+(NULL, 'Quản lý nhóm quyền', current_timestamp(), NULL), 
+(NULL, 'Quản lý quyền', current_timestamp(), NULL), 
+(NULL, 'Quản lý vai trò', current_timestamp(), NULL), 
+(NULL, 'Quản lý người dùng', current_timestamp(), NULL);
 
 -- permission
-INSERT INTO `permissions` (`id`, `name`, `key`, `permission_group_id`, `created_at`, `updated_at`) VALUES (NULL, 'xem đề thi', 'views-exams', '2', current_timestamp(), NULL);
+INSERT INTO `permissions` (`id`, `name`, `key`, `permission_group_id`, `created_at`, `updated_at`) 
+VALUES 
+(NULL, 'Xem danh sách nhóm quyền', 'viewAny-permission-group', '1', current_timestamp(), NULL), 
+(NULL, 'Xem nhóm quyền', 'view-permission-group', '1', current_timestamp(), NULL),
+(NULL, 'Thêm mới nhóm quyền', 'create-permission-group', '1', current_timestamp(), NULL),
+(NULL, 'Chỉnh sửa nhóm quyền', 'update-permission-group', '1', current_timestamp(), NULL),
+(NULL, 'Xóa bỏ nhóm quyền', 'delete-permission-group', '1', current_timestamp(), NULL),
+(NULL, 'Xem danh sách quyền', 'viewAny-permission', '2', current_timestamp(), NULL), 
+(NULL, 'Xem quyền', 'view-permission', '2', current_timestamp(), NULL),
+(NULL, 'Thêm mới quyền', 'create-permission', '2', current_timestamp(), NULL),
+(NULL, 'Chỉnh sửa quyền', 'update-permission', '2', current_timestamp(), NULL),
+(NULL, 'Xóa bỏ quyền', 'delete-permission', '2', current_timestamp(), NULL),
+(NULL, 'Xem danh sách vai trò', 'viewAny-role', '3', current_timestamp(), NULL), 
+(NULL, 'Xem vai trò', 'view-role', '3', current_timestamp(), NULL),
+(NULL, 'Thêm mới vai trò', 'create-role', '3', current_timestamp(), NULL),
+(NULL, 'Chỉnh sửa vai trò', 'update-role', '3', current_timestamp(), NULL),
+(NULL, 'Xóa bỏ vai trò', 'delete-role', '3', current_timestamp(), NULL),
+(NULL, 'Xem danh sách người dùng', 'viewAny-user', '4', current_timestamp(), NULL), 
+(NULL, 'Xem người dùng', 'view-user', '4', current_timestamp(), NULL),
+(NULL, 'Thêm mới người dùng', 'create-user', '4', current_timestamp(), NULL),
+(NULL, 'Chỉnh sửa người dùng', 'update-user', '4', current_timestamp(), NULL),
+(NULL, 'Xóa bỏ người dùng', 'delete-user', '4', current_timestamp(), NULL);
+
+-- roles
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`)
+VALUES
+(NULL, 'Admin', current_timestamp(), NULL),
+(NULL, 'Quản lý hệ thống', current_timestamp(), NULL), 
+(NULL, 'Giáo viên', current_timestamp(), NULL), 
+(NULL, 'Học viên', current_timestamp(), NULL);
+
+-- roles_permissions
+INSERT INTO `roles_permissions` (`permission_id`, `role_id`, `created_at`, `updated_at`)
+VALUES
+-- admin
+('1', '1', current_timestamp(), NULL),
+('2', '1', current_timestamp(), NULL),
+('3', '1', current_timestamp(), NULL),
+('4', '1', current_timestamp(), NULL),
+('5', '1', current_timestamp(), NULL),
+('6', '1', current_timestamp(), NULL),
+('7', '1', current_timestamp(), NULL),
+('8', '1', current_timestamp(), NULL),
+('9', '1', current_timestamp(), NULL),
+('10', '1', current_timestamp(), NULL),
+('11', '1', current_timestamp(), NULL),
+('12', '1', current_timestamp(), NULL),
+('13', '1', current_timestamp(), NULL),
+('14', '1', current_timestamp(), NULL),
+('15', '1', current_timestamp(), NULL),
+('16', '1', current_timestamp(), NULL),
+('17', '1', current_timestamp(), NULL),
+('18', '1', current_timestamp(), NULL),
+('19', '1', current_timestamp(), NULL),
+('20', '1', current_timestamp(), NULL),
+-- quản lý hệ thống
+('1', '2', current_timestamp(), NULL),
+('2', '2', current_timestamp(), NULL),
+('6', '2', current_timestamp(), NULL),
+('7', '2', current_timestamp(), NULL),
+('11', '2', current_timestamp(), NULL),
+('12', '2', current_timestamp(), NULL),
+('16', '2', current_timestamp(), NULL),
+('17', '2', current_timestamp(), NULL);
+
+
+-- user
+INSERT INTO `users` (`id`, `name`, `email`, `username`, `password`, `phone`, `role_id`, `avatar`) 
+VALUES 
+(NULL, 'huy', 'huy12@gmail.com', 'huy12', '123', '0123', '1', NULL);
+
+
+
+
+

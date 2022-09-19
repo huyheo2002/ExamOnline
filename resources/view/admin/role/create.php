@@ -49,8 +49,8 @@ require_once "./app/Route.php";
                                                 foreach ($permissionGroup["permissions"] as $permission) {
                                             ?>
                                                 <div class="permission__wrap">
-                                                    <label for="" class="permission__name"><?= $permission["name"] ?> :</label>
-                                                    <input type="checkbox" name="permission_ids[]" id="" value="<?= $permission["id"] ?>">
+                                                    <input class="permission_cb" type="checkbox" name="permission_ids[]" id="" value="<?= $permission["id"] ?>">
+                                                    <label for="" class="permission__name"><?= $permission["name"] ?></label>
                                                 </div>
                                     <?php
                                                 }

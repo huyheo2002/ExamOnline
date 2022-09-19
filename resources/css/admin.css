@@ -35,7 +35,7 @@
     bottom: 0;
     left: 0;
     top: 0;
-    z-index: 5;
+    z-index: 15;
     border-right: 3px solid #ccc;
 }
 
@@ -111,6 +111,7 @@
     right: 0;
     border-bottom: 1px solid #ccc;
     user-select: none;
+    z-index: 10;
 }
 
 .content__main{
@@ -168,6 +169,8 @@ button:hover{
 .list__action {
     display: flex;
     justify-content: space-around;
+    height: 75px;
+    padding: 20px 8px;
 }
 
 .list__action a {

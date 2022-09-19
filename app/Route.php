@@ -43,7 +43,10 @@ class Route
 
     public static function root()
     {
-        return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
+        // khi sd cho local mà có folder . . . :V
+        // return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
+        // dùng kiểu vip
+        return "http://".$_SERVER["HTTP_HOST"];
     }
 
     public static function path($routeName, $data = [])

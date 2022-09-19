@@ -7,11 +7,16 @@ class UserController extends BaseController
 {
     public function index()
     {
-        $sql = "SELECT * FROM `permissions`";
-        $user = DB::execute($sql);
-        // var_dump($user);
-        // die;
-        // lấy view
+        $sql = "SELECT * FROM `users`";
+        $users = DB::execute($sql);
+        
+        $sql = "SELECT * FROM `roles` WHERE (`id` = :id)";        
+        
+        foreach ($users as $key => $user) {
+            $users[$key]["role"] = DB::execute($sql, ["id" => $users[$key]["role_id"]])[0];
+            
+        }
+        
         include ("./resources/view/admin/user/index.php");
         
     }
