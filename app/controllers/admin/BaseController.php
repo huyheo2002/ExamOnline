@@ -17,6 +17,7 @@ abstract class BaseController
                 break;
             case !strcmp($action, "store"):
                 $formData = array_merge(array(), $_POST);
+                $formData = array_merge($formData, $_FILES);
                 $this->store($formData);
                 break;
             case !strcmp($action, "show"):
@@ -30,6 +31,7 @@ abstract class BaseController
             case !strcmp($action, "update"):
                 $id = $_GET["id"] ?? 0;
                 $formData = array_merge(array(), $_POST);
+                $formData = array_merge($formData, $_FILES);
                 $this->update($id, $formData);
                 break;
             case !strcmp($action, "delete"):

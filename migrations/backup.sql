@@ -57,6 +57,8 @@ CREATE TABLE `users`  (
   `phone` varchar(50) NULL,
   `role_id` int(10) UNSIGNED,
   `avatar` varchar(255),
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`role_id`) REFERENCES roles(`id`)
 );
 

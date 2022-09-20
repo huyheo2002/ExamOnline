@@ -26,26 +26,50 @@
                     <div class="content__wrap">
                         <h2 class="content__title">Hiển thị nhóm quyền</h2>                    
                         <?php
-                            if(!empty($permissionGroup)) {                            
+                            if(!empty($user)) {                            
                                                         
                         ?>
                             <!-- form ảo :v -->
                             <div class="formClone">
                                 <div class="item">
                                     <label for="">Id</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["id"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $user["id"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tên :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["name"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $user["name"] ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="email">Email :</label>
+                                    <input type="email" placeholder="<?= $user["email"] ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="username">Username :</label>
+                                    <input type="text" placeholder="<?= $user["username"] ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="password">Password :</label>
+                                    <input type="password" placeholder="<?= $user["password"] ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="phone">Phone :</label>
+                                    <input type="text" placeholder="<?= $user["phone"] ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="role_id">Vai trò :</label>
+                                    <input type="text" placeholder="<?= !empty($user['role']) ? $user['role']['name'] : '' ?>" disabled>
+                                </div>
+                                <div class="item">
+                                    <label for="avatar">Ảnh đại diện :</label>
+                                    <img src="<?= $user["avatar"] ?>" alt="" style="max-width: 150px;">
                                 </div>
                                 <div class="item">
                                     <label for="">Tạo lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["created_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $user["created_at"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Cập nhật lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["updated_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $user["updated_at"] ?>" disabled>
                                 </div>
                                                         
                         <?php 

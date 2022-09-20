@@ -37,7 +37,7 @@ require_once "./app/Route.php";
                                                             
                     ?>
                         <tr>
-                            <td><?= $user["avatar"] ?></td>
+                            <td> <img src="<?= $user["avatar"] ?>" alt="Avatar" style="max-width: 150px"> </td>
                             <td><?= $user["name"] ?></td>
                             <td><?= $user["role"]["name"] ?></td>
                             <td class="list__action">
