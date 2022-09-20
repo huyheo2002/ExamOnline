@@ -5,6 +5,8 @@ require_once "./app/Route.php";
 
 class UserController extends BaseController
 {
+    // lưu ảnh vào đâu đó
+    //DIRECTORY_SEPARATOR : chỉ là dấu / :V nma cồng kềnh hơn (dấu / tùy theo hệ điều hành vd linux với window)
     private $storagePath = "storage" . DIRECTORY_SEPARATOR . "user_avatar" . DIRECTORY_SEPARATOR;
 
     public function index()
@@ -20,8 +22,12 @@ class UserController extends BaseController
         foreach ($users as $key => $user) {
             $link = "https://via.placeholder.com/150";
             if (!empty($user["avatar"])) {
+                // xóa bộ nhớ đệm
+                // https://www.w3schools.com/php/func_filesystem_file_exists.asp
                 clearstatcache();
                 if (file_exists($this->storagePath . $user["avatar"])) {
+                    // https://stackoverflow.com/questions/8499633/how-to-display-base64-images-in-html
+                    // bắt buộc phải viết nnay :v
                     $link = "data:image/png; base64, " . base64_encode(file_get_contents($this->storagePath . $user["avatar"]));
                 }
             }

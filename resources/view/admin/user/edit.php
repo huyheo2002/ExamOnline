@@ -31,7 +31,7 @@ require_once "./app/Route.php";
                         if (!empty($user)) {
 
                         ?>                        
-                            <form action="<?= Route::path('permission-group.update', ['id' => $user['id']]) ?>" method="POST">
+                            <form action="<?= Route::path('user.update', ['id' => $user['id']]) ?>" method="POST" enctype="multipart/form-data">
                                 <div class="item">
                                     <label for="id">Id :</label>
                                     <input value="<?= $user['id'] ?>" type="text" name="id" id="id" disabled>
@@ -42,19 +42,19 @@ require_once "./app/Route.php";
                                 </div>
                                 <div class="item">
                                     <label for="email">Email :</label>
-                                    <input type="email" name="email" id="email">
+                                    <input value="<?= $user['email'] ?>" type="email" name="email" id="email">
                                 </div>
                                 <div class="item">
                                     <label for="username">Username :</label>
-                                    <input type="text" name="username" id="username">
+                                    <input value="<?= $user['username'] ?>" type="text" name="username" id="username">
                                 </div>
                                 <div class="item">
                                     <label for="password">Password :</label>
-                                    <input type="password" name="password" id="password">
+                                    <input value="<?= $user['password'] ?>" type="password" name="password" id="password">
                                 </div>
                                 <div class="item">
                                     <label for="phone">Phone :</label>
-                                    <input type="text" name="phone" id="phone">
+                                    <input value="<?= $user['phone'] ?>" type="text" name="phone" id="phone">
                                 </div>
                                 <?php
                                     $selectedRole = $user["role_id"] ?? 0;
@@ -89,7 +89,7 @@ require_once "./app/Route.php";
 
                                 <div class="content__listBtn">
                                     <input type="submit" value="Cập nhật" class="content__btnAdd">
-                                    <a class="content__btnExit" href="#">Trở về</a>
+                                    <a class="content__btnExit" href="<?= Route::path('user.index') ?>">Trở về</a>
                                 </div>
                             </form>
 

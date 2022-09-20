@@ -29,7 +29,7 @@ require_once "./app/Route.php";
                     <table>
                         <tr>
                             <th style="width: 10%">Id</th>
-                            <th style="width: 30%">Tên</th>
+                            <th style="width: 30%">Tên vai trò</th>
                             <th style="width: 30%">Các quyền</th>
                             <th style="width: 30%">Hoạt động</th>
                         </tr>

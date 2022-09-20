@@ -37,10 +37,14 @@ require_once "./app/Route.php";
                                                             
                     ?>
                         <tr>
-                            <td> <img src="<?= $user["avatar"] ?>" alt="Avatar" style="max-width: 150px"> </td>
+                            <td> 
+                                <div class="user-avatar" style="width: 150px; height: 150px; display: flex; justify-content: center; align-items: center;">
+                                    <img src="<?= $user["avatar"] ?>" alt="Avatar" style="max-width: 100%; max-height: 100%;"> 
+                                </div>
+                            </td>
                             <td><?= $user["name"] ?></td>
                             <td><?= $user["role"]["name"] ?></td>
-                            <td class="list__action">
+                            <td class="list__action" style="height: 158px; padding: 63px 8px;">
                                 <!-- test -->
                                 <a href="<?= Route::path('user.show', ['id' => $user['id']]) ?>">Hiển thị</a>
                                 <a href="<?= Route::path('user.edit', ['id' => $user['id']]) ?>">Chỉnh sửa</a>
