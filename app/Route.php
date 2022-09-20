@@ -2,7 +2,7 @@
 
 class Route
 {
-    static private $definedRoutes = [];
+    static public $definedRoutes = [];
     
     static public function handle(string $uri)
     {                
@@ -59,7 +59,14 @@ class Route
         return $url;
     }
 
-    
-    
-
+    public static function error($statusCode) 
+    {
+        switch ($statusCode) {
+            case 403:
+                http_response_code($statusCode);
+                include "./resources/view/error/403.php";
+            break;
+        }
+        die;
+    }
 }

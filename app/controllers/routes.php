@@ -1,8 +1,11 @@
-
-
 <?php
+
 require_once ("./app/Route.php");
 require_once ("./app/Auth.php");
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 Route::set("", function() {
     include ("./resources/view/index.php");

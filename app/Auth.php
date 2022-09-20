@@ -2,89 +2,66 @@
 require_once './app/DB.php';
 require_once './app/Route.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 class Auth
 {
-    static public function getDataAll()
-    {
-        $sql = "select * from users";
-        $users = DB::execute($sql);
-
-        return $users;
-    }
-
     static public function register($dataRegister)
     {
-        $sql = "insert into users(email, username, password) values(:email, :username, :password)";
+        $sql = "INSERT INTO `users`(`email`, `username`, `password`) VALUES(:email, :username, :password)";
         DB::execute($sql, $dataRegister);
-    }
-
-
-    static public function getData($dataLogin)
-    {
-        $sql = "select * from users where email=:email";
-        $user = DB::execute($sql, $dataLogin);
-        return count($user) > 0 ? $user[0] : [];
     }
 
     static public function attempt($dataLogin)
     {
+        $sql = "SELECT * FROM `users` WHERE ((`username` = :username) AND (`password` = :password))";
+        $users = DB::execute($sql, $dataLogin);
 
-        $sql = "select * from users where (username = :username) and (password = :password)";
-        $user = DB::execute($sql, $dataLogin);
-        return count($user) > 0 ? $user[0] : [];
+        return !empty($users) ? $users[0] : [];
     }
-
 
     static public function login($dataLogin)
     {
         $user = Auth::attempt($dataLogin);
 
-        if (count($user) > 0) {
-            $_SESSION['message'] = "Login success";
-            $_SESSION['message_login'] = "Login success";
-            $_SESSION['dataUser'] = $user['username'];
-            $_SESSION['dataEmail'] = $user['email'];
-
-            Route::redirect(Route::root()."?page=admin");
+        if (!empty($user)) {
+            $_SESSION['user_id'] = $user['id']; // Lưu id user hiện tại
+            
+            Route::redirect(Route::path("admin")); // Chuyển hướng đến đích mong muốn
         } else {
             echo '<script>alert("Sai email hoặc mật khẩu!")</script>';
         }
     }
 
+    static public function check() 
+    {
+        $sql = "SELECT * FROM `users` WHERE id=:id";
+        $users = DB::execute($sql, [
+            "id" => $_SESSION["user_id"] ?? -1,
+        ]);
+
+        return !empty($users);
+    }
+
     static public function logout()
     {
-        if (isset($_SESSION['message_Logout'])) {
-            unset($_SESSION['message']);
-            unset($_SESSION['dataUser']);
-            unset($_SESSION['message_logout']);
-            // header("location:./Login.php");
+        if (isset($_SESSION["user_id"])) {
+            unset($_SESSION["user_id"]);
+
+            Route::redirect(Route::path(""));
         }
     }
 
-    static public function find($email)
+    static public function user()
     {
-        $sql = "select * from users where email=:email";
-        $dataFind = ['email' => $email];
+        $sql = "SELECT * FROM `users` WHERE id=:id";
+        $users = DB::execute($sql, [
+            "id" => $_SESSION["user_id"] ?? -1,
+        ]);
 
-        $user = DB::execute($sql, $dataFind);
-
-        return count($user) > 0 ? $user[0] : [];
+        return !empty($users) ? $users[0] : [];
     }
 
-    static public function update($dataUpdate)
-    {
-        $sql = "update users set username=:username,password=:password where email=:email";
-        $check = DB::execute($sql, $dataUpdate);
-        return count($check) > 0 ? $check[0] : [];
-        if (count($check) > 0) {
-            $_SESSION['message_update'] = "update success";
-        }
-    }
-
-    static public function delete($email)
-    {
-        $sql = "delete from users where email=:email";
-        $dataDelete = ['email' => $email];
-        DB::execute($sql, $dataDelete);
-    }
 }

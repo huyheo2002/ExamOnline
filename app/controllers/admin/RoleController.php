@@ -14,13 +14,7 @@ class RoleController extends BaseController
         for ($i = 0; $i < count($roles); $i++) {
             $roles[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $roles[$i]["id"]]));  
         }
-        // foreach ($roles as &$role) {
-        //     $role["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $role["id"]]));
-        // }
-        // var_dump($roles);
-        // die;
         
-        // lấy view
         include ("./resources/view/admin/role/index.php");        
     }
 
@@ -34,9 +28,6 @@ class RoleController extends BaseController
             $permissionGroups[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $permissionGroups[$i]["id"]]));          
         }
 
-        // var_dump($permissionGroups);
-        // die;
-        
         include ("./resources/view/admin/role/create.php");
     }
 
@@ -61,7 +52,6 @@ class RoleController extends BaseController
         Route::redirect(Route::root() . "?page=role.index");       
     }
 
-    // từ show xuống bị cút :V
     public function show($id)
     {
         $sql = "SELECT * FROM `roles` WHERE (`id` = :id)";
