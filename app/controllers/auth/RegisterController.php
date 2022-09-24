@@ -7,7 +7,7 @@ class RegisterController
 {
     public function showRegisterForm() 
     {
-        //
+        include ("./resources/view/auth/frmRegister.html");
     }
 
     public function register()
