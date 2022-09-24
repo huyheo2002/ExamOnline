@@ -1,10 +1,10 @@
 <?php
 
-require_once("./app/DB.php");
-require_once("./app/Route.php");
-require_once("./app/Auth.php");
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-include_once("./app/controllers/routes.php");
-include_once "./app/controllers/gates.php"; // Phân quyền
+include_once("./config/routes.php");
+include_once "./config/gates.php"; // Phân quyền
             
 Route::handle($_GET["page"] ?? "");

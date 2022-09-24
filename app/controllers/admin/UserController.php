@@ -1,9 +1,9 @@
 <?php
-require_once "./app/controllers/admin/BaseController.php";
+require_once "./app/controllers/ResourceController.php";
 require_once "./app/DB.php";
 require_once "./app/Route.php";
 
-class UserController extends BaseController
+class UserController extends ResourceController
 {
     // lưu ảnh vào đâu đó
     //DIRECTORY_SEPARATOR : chỉ là dấu / :V nma cồng kềnh hơn (dấu / tùy theo hệ điều hành vd linux với window)

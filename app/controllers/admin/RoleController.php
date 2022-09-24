@@ -1,9 +1,9 @@
 <?php
-require_once "./app/controllers/admin/BaseController.php";
+require_once "./app/controllers/ResourceController.php";
 require_once "./app/DB.php";
 require_once "./app/Route.php";
 
-class RoleController extends BaseController
+class RoleController extends ResourceController
 {
     public function index()
     {

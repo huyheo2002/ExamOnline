@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 class DB
 {
@@ -33,7 +35,7 @@ class DB
         return static::$connection;
     }
 
-    static public function execute($sql, $data = [])
+    static public function execute($sql, $param = [])
     {
         // tạo đối tượng prepare lưu trữ câu lệnh truy vấn sql
         // ví dụ truy xuất
@@ -46,34 +48,30 @@ class DB
         // $stmt->bindParam(3, $age);
         $statement = DB::getConnection()->prepare($sql);
         
-        // var_dump($statement);
-        // die;
         // đọc dữ liệu từ DB
         // PDO::FETCH_ASSOC: Trả về dữ liệu dạng mảng với key là tên của column (column của các table trong database)        
         $statement->setFetchMode(PDO::FETCH_ASSOC);
 
         // gán giá trị và thực thi truy vấn
         // FETCH_ASSOC Kiểu fetch này sẽ tạo ra một mảng kết hợp lập chỉ mục theo tên column (nghĩa là các key của mảng chính là tên của column)
-        $result = $statement->execute($data);
-        // debug
-        // self::bruh($statement);
+        $result = $statement->execute($param);
+
+        // self::debug($statement);
         if (!$result) {
-            // throw new Exception(self::$connection->errorInfo()[2]);
-            var_dump(self::$connection->errorInfo());
-            die;
+            // var_dump(self::$connection->errorInfo());
+            // die;
+            throw new Exception(self::$connection->errorInfo()[2]);
         }
-        
-        // $statement->execute($data);
-        $result =[];
         
         // Hiển thị kết quả, vòng lặp sau đây sẽ dừng lại khi đã duyệt qua toàn bộ kết quả trả về
+        $data = [];
         while($item = $statement->fetch()) {
-            $result[]=$item; 
+            $data[]=$item; 
         }
-        return $result;  
+        return $data;  
     }
 
-    static public function bruh($statement) 
+    static public function debug($statement) 
     {
         var_dump($statement->debugDumpParams());
         die;

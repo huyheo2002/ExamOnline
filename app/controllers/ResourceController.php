@@ -1,6 +1,6 @@
 <?php
 
-abstract class BaseController
+abstract class ResourceController
 {
     public function handle($action)
     {
@@ -39,7 +39,7 @@ abstract class BaseController
                 $this->delete($id);
                 break;
             default:
-                echo "cười :V";
+                echo "Không có action này.";
         }
     }
 

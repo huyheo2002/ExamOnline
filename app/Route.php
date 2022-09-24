@@ -13,17 +13,35 @@ class Route
             }            
         }
         
+        echo "Undefined route";
         return false;
     }
 
+    /**
+     * set(string $uri, function $callback) => assign a route to an individual function
+     * set(string $uri, array(string $classPath, string $callback)) => assign a route to a method of a class
+     */
     static public function set(string $uri, $callback)
     {
-        self::$definedRoutes[$uri] = $callback;
+        if (is_array($callback)) {
+            $classPath = $callback[0];
+            $className = current(array_slice(explode("/", $classPath), -1));
+            $funcName = $callback[1];
+
+            require_once "./app/".$classPath.".php";
+            $obj = new $className();
+
+            self::set($uri, fn() => $obj->$funcName());
+        } else {
+            self::$definedRoutes[$uri] = $callback;
+        }
     }
 
-    static public function resource(string $uri, string $className) 
+    static public function resource(string $uri, string $classPath) 
     {
-        require_once "./app/controllers/admin/".$className.".php";
+        $className = current(array_slice(explode("/", $classPath), -1));
+
+        require_once "./app/".$classPath.".php";
         $obj = new $className();
 
         self::set($uri.".index", fn() => $obj->handle("index"));
@@ -45,7 +63,7 @@ class Route
     {
         // khi sd cho local mà có folder . . . :V
         // return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
-        // dùng kiểu vip
+        // khi sd virtual host
         return "http://".$_SERVER["HTTP_HOST"];
     }
 

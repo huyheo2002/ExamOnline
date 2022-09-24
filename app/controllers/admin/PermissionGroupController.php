@@ -1,10 +1,10 @@
 <?php
-require_once "./app/controllers/admin/BaseController.php";
+require_once "./app/controllers/ResourceController.php";
 require_once "./app/DB.php";
 require_once "./app/Route.php";
 require_once "./app/Gate.php";
 
-class PermissionGroupController extends BaseController
+class PermissionGroupController extends ResourceController
 {
     public function index()
     {

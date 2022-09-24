@@ -8,6 +8,15 @@
             <img src="./resources/images/main/logo/logoHuyExam-nobg.png" alt="">
         </a>                    
     </div>
+    <div class="body__sidebar_user">
+        <?php
+            // if (Auth::check()) {
+
+            // } else {
+            //     Route::redirect(Route::path('login'));
+            // }
+        ?>
+    </div>
     <h3 class="sidebar__title">Quản lý hệ thống</h3>
     <ul class="body__sidebar_list">
         <li><a href="<?= Route::path('permission-group.index') ?>">
