@@ -40,6 +40,30 @@ require_once "./app/Route.php";
                                     <label for="name">Tên :</label>
                                     <input value="<?= $category['name'] ?>" type="text" name="name" id="name">
                                 </div>
+                                <?php 
+                                    $selectedTeachers = [];
+                                    if(!empty($category["users"])) {
+                                        $selectedTeachers = array_map(fn($user) => $user["id"] ?? 0, $category["users"]);
+                                    }                                    
+                                ?>
+                                <div class="item">
+                                    <label for="permission">Giáo viên :</label>
+                                    <div class="">
+                                        <?php
+                                        if (!empty($teachers)) {
+                                            foreach ($teachers as $teacher) {
+                                        ?>
+                                                <div class="check__wrap">
+                                                    <input class="check_cb" type="checkbox" name="teacher_ids[]" id="chk_teacher_<?= $teacher['id'] ?>" value="<?= $teacher["id"] ?>" <?= in_array($teacher["id"], $selectedTeachers) ? "checked" : "" ?>>
+                                                    <label for="chk_teacher_<?= $teacher['id'] ?>" class="check__name"><?= $teacher["name"] ?></label>
+                                                </div>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+
+                                    </div>
+                                </div>
                                 <div class="item">
                                     <label for="created_at">Tạo lúc :</label>
                                     <input value="<?= $category['created_at'] ?>" type="text" name="created_at" id="created_at" disabled>

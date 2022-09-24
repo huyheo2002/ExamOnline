@@ -42,7 +42,7 @@ require_once "./app/Route.php";
                                     <td><?= $role["id"] ?></td>
                                     <td><?= $role["name"] ?></td>
                                     <td>
-                                        <select class="list__permissions" multiple>
+                                        <select class="list__multiple" multiple>
                                             <?php
                                             if (!empty($role["permissions"])) {
                                                 foreach ($role["permissions"] as $permission) {

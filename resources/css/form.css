@@ -116,21 +116,21 @@ form {
 }
 
 /* permission_group */
-.permission__title {
+.check__title {
     font-size: 14px;
     font-weight: 400;
     display: inline-block;
     margin-bottom: 0.5rem;
 }
 
-.permission__wrap {
+.check__wrap {
     display: flex;
     align-items: center;
     margin-left: 15px;
     margin-bottom: 10px;
 }
 
-label.permission__name {
+label.check__name {
     width: auto;
     margin-bottom: 0;
     font-size: 14px;
@@ -139,13 +139,13 @@ label.permission__name {
     transition: all linear 0.3s;
 }
 
-input.permission_cb {
+input.check_cb {
     width: auto;
     transform: scale(1.5);        
     /* transform: translateY(-0.075em); */
 }
 
-input.permission_cb:hover ~ label.permission__name {
+input.check_cb:hover ~ label.check__name {
     color: #007bff;
 }
 

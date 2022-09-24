@@ -12,12 +12,12 @@ class RoleController extends ResourceController
         $sql = "SELECT * FROM `roles`";
         $roles = DB::execute($sql);
 
-        $sql = "SELECT permissions.* FROM roles_permissions, permissions WHERE (roles_permissions.permission_id = permissions.id and roles_permissions.role_id = :id)";
+        $sql = "SELECT `permissions`.* FROM `roles_permissions`, `permissions` WHERE (`roles_permissions`.`permission_id` = `permissions`.`id` and `roles_permissions`.`role_id` = :id)";
         for ($i = 0; $i < count($roles); $i++) {
             $roles[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $roles[$i]["id"]]));  
         }
         
-        include ("./resources/view/admin/role/index.php");        
+        return include ("./resources/view/admin/role/index.php");        
     }
 
     public function create()
@@ -32,7 +32,7 @@ class RoleController extends ResourceController
             $permissionGroups[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $permissionGroups[$i]["id"]]));          
         }
 
-        include ("./resources/view/admin/role/create.php");
+        return include ("./resources/view/admin/role/create.php");
     }
 
     public function store($formData)
@@ -40,8 +40,7 @@ class RoleController extends ResourceController
         Gate::authorize('create-role');
 
         $sql = "INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES (null, :name, null, null)";
-        DB::execute($sql, 
-        [
+        DB::execute($sql, [
             "name" => $formData["name"]
         ]);
         $sql = "SELECT LAST_INSERT_ID() FROM `roles`"; 
@@ -55,7 +54,7 @@ class RoleController extends ResourceController
             ]);
         }
 
-        Route::redirect(Route::path("role.index"));       
+        return Route::redirect(Route::path("role.index"));       
     }
 
     public function show($id)
@@ -65,7 +64,7 @@ class RoleController extends ResourceController
         $sql = "SELECT * FROM `roles` WHERE (`id` = :id)";
         $role = DB::execute($sql, ["id" => $id])[0];
 
-        $sql = "SELECT permissions.id FROM roles_permissions, permissions WHERE (roles_permissions.permission_id = permissions.id and roles_permissions.role_id = :id)";
+        $sql = "SELECT `permissions`.* FROM `roles_permissions`, `permissions` WHERE (`roles_permissions`.`permission_id` = `permissions`.`id` AND `roles_permissions`.`role_id` = :id)";
         $role["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $role["id"]])); 
         
         $sql = "SELECT * FROM `permission_groups`";
@@ -76,7 +75,7 @@ class RoleController extends ResourceController
             $permissionGroups[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $permissionGroups[$i]["id"]]));          
         }
         
-        include ("./resources/view/admin/role/show.php");
+        return include ("./resources/view/admin/role/show.php");
     }
 
     public function edit($id)
@@ -86,7 +85,7 @@ class RoleController extends ResourceController
         $sql = "SELECT * FROM `roles` WHERE (`id` = :id)";
         $role = DB::execute($sql, ["id" => $id])[0];
 
-        $sql = "SELECT permissions.id FROM roles_permissions, permissions WHERE (roles_permissions.permission_id = permissions.id and roles_permissions.role_id = :id)";
+        $sql = "SELECT `permissions`.* FROM `roles_permissions`, `permissions` WHERE (`roles_permissions`.`permission_id` = `permissions`.`id` AND `roles_permissions`.`role_id` = :id)";
         $role["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $role["id"]])); 
         
         $sql = "SELECT * FROM `permission_groups`";
@@ -97,7 +96,7 @@ class RoleController extends ResourceController
             $permissionGroups[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $permissionGroups[$i]["id"]]));          
         }
 
-        include ("./resources/view/admin/role/edit.php");
+        return include ("./resources/view/admin/role/edit.php");
     }
 
     public function update($id, $formData)
@@ -118,7 +117,7 @@ class RoleController extends ResourceController
             ]);
         }
         
-        Route::redirect(Route::path("role.index"));  
+        return Route::redirect(Route::path("role.index"));  
     }
 
     public function delete($id)
@@ -130,7 +129,8 @@ class RoleController extends ResourceController
         
         $sql = "DELETE FROM `roles` WHERE (`id` = :id)";
         DB::execute($sql, ["id" => $id]);
-        Route::redirect(Route::path("role.index"));  
+
+        return Route::redirect(Route::path("role.index"));  
     }
 
 }

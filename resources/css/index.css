@@ -73,12 +73,12 @@
     font-weight: 400;
 }
 
-.list__permissions {
+.list__multiple {
     width: 100%;
     /* padding: 4px; */
 }
 
-.list__permissions option {
+.list__multiple option {
     padding: -4px;
     margin: 4px;
     margin-left: 10px;
