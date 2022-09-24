@@ -18,7 +18,7 @@ class Auth
             DB::execute($sql, $dataRegister);
 
             return true;
-        } catch (Exception) {
+        } catch (Exception $ex) {
             return false;
         }
     }

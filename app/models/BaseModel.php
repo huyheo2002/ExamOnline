@@ -58,7 +58,7 @@ class BaseModel
             DB::execute($sql, ["id" => $id]);
 
             return true;
-        } catch (Exception) {
+        } catch (Exception $ex) {
             return false;
         }
     }
