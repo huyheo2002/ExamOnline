@@ -30,7 +30,7 @@ class PermissionGroupController extends BaseController
         $sql = "INSERT INTO`permission_groups` (`id`, `name`, `created_at`, `updated_at`) VALUES (null, :name, null, null)";
         DB::execute($sql, ["name" => $formData["name"]]); 
         
-        Route::redirect(Route::root() . "?page=permission-group.index");       
+        Route::redirect(Route::path("permission-group.index"));       
     }
 
     public function show($id)
@@ -60,7 +60,7 @@ class PermissionGroupController extends BaseController
         $sql = "UPDATE `permission_groups` SET `name` = :name WHERE (`id` = :id)";
         DB::execute($sql, ["id" => $id, "name" => $formData["name"]]);
         
-        Route::redirect(Route::root() . "?page=permission-group.index");  
+        Route::redirect(Route::path("permission-group.index"));  
     }
 
     public function delete($id)
@@ -70,7 +70,7 @@ class PermissionGroupController extends BaseController
         $sql = "DELETE FROM `permission_groups` WHERE (`id` = :id)";
         DB::execute($sql, ["id" => $id]);
         
-        Route::redirect(Route::root() . "?page=permission-group.index");  
+        Route::redirect(Route::path("permission-group.index"));  
     }
 
 }

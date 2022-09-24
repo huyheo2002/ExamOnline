@@ -24,28 +24,28 @@
                     ?>
                 <div class="content__main show">
                     <div class="content__wrap">
-                        <h2 class="content__title">Hiển thị nhóm quyền</h2>                    
+                        <h2 class="content__title">Hiển thị danh mục</h2>                    
                         <?php
-                            if(!empty($permissionGroup)) {                            
+                            if(!empty($category)) {                            
                                                         
                         ?>
                             <!-- form ảo :v -->
                             <div class="formClone">
                                 <div class="item">
                                     <label for="">Id</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["id"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category["id"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tên :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["name"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category["name"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tạo lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["created_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category["created_at"] ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Cập nhật lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["updated_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category["updated_at"] ?>" disabled>
                                 </div>
                                                         
                         <?php 
@@ -53,7 +53,7 @@
                         ?>
                                 <div class="content__listBtn flex-start">
                                     <button class="content__btnExit btn-margin">
-                                        <a href="<?= Route::path('permission-group.index') ?>">Trở về</a>   
+                                        <a href="<?= Route::path('category.index') ?>">Trở về</a>   
                                     </button>                                                        
                                 </div>
                             </div>

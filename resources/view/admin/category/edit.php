@@ -26,32 +26,32 @@ require_once "./app/Route.php";
                 ?>
                 <div class="content__main show">
                     <div class="content__wrap">
-                        <h2 class="content__title">Chỉnh sửa nhóm quyền</h2>
+                        <h2 class="content__title">Chỉnh sửa danh mục</h2>
                         <?php
-                        if (!empty($permissionGroup)) {
+                        if (!empty($category)) {
 
                         ?>                        
-                            <form action="<?= Route::path('permission-group.update', ['id' => $permissionGroup['id']]) ?>" method="POST">
+                            <form action="<?= Route::path('category.update', ['id' => $category['id']]) ?>" method="POST">
                                 <div class="item">
                                     <label for="id">Id :</label>
-                                    <input value="<?= $permissionGroup['id'] ?>" type="text" name="id" id="id" disabled>
+                                    <input value="<?= $category['id'] ?>" type="text" name="id" id="id" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="name">Tên :</label>
-                                    <input value="<?= $permissionGroup['name'] ?>" type="text" name="name" id="name">
+                                    <input value="<?= $category['name'] ?>" type="text" name="name" id="name">
                                 </div>
                                 <div class="item">
                                     <label for="created_at">Tạo lúc :</label>
-                                    <input value="<?= $permissionGroup['created_at'] ?>" type="text" name="created_at" id="created_at" disabled>
+                                    <input value="<?= $category['created_at'] ?>" type="text" name="created_at" id="created_at" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="updated_at">Cập nhật lúc :</label>
-                                    <input value="<?= $permissionGroup['updated_at'] ?>" type="text" name="updated_at" id="updated_at" disabled>
+                                    <input value="<?= $category['updated_at'] ?>" type="text" name="updated_at" id="updated_at" disabled>
                                 </div>
 
                                 <div class="content__listBtn">
                                     <input type="submit" value="Cập nhật" class="content__btnAdd">
-                                    <a class="content__btnExit" href="<?= Route::path('permission-group.index') ?>">Trở về</a>
+                                    <a class="content__btnExit" href="<?= Route::path('category.index') ?>">Trở về</a>
                                 </div>
                             </form>
 

@@ -29,7 +29,6 @@ class Auth
         if (!empty($user)) {
             $_SESSION['user_id'] = $user['id']; // Lưu id user hiện tại
             
-            Route::redirect(Route::path("admin")); // Chuyển hướng đến đích mong muốn
         } else {
             echo '<script>alert("Sai email hoặc mật khẩu!")</script>';
         }
@@ -60,6 +59,22 @@ class Auth
         $users = DB::execute($sql, [
             "id" => $_SESSION["user_id"] ?? -1,
         ]);
+
+        $storagePath = "storage" . DIRECTORY_SEPARATOR . "user_avatar" . DIRECTORY_SEPARATOR;
+        foreach ($users as $key => $user) {
+            $link = "https://via.placeholder.com/150";
+            if (!empty($user["avatar"])) {
+                // xóa bộ nhớ đệm
+                // https://www.w3schools.com/php/func_filesystem_file_exists.asp
+                clearstatcache();
+                if (file_exists($storagePath . $user["avatar"])) {
+                    // https://stackoverflow.com/questions/8499633/how-to-display-base64-images-in-html
+                    // bắt buộc phải viết nnay :v
+                    $link = "data:image/png; base64, " . base64_encode(file_get_contents($storagePath . $user["avatar"]));
+                }
+            }
+            $users[$key]["avatar"] = $link;
+        }
 
         return !empty($users) ? $users[0] : [];
     }

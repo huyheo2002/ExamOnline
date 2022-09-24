@@ -11,6 +11,8 @@ class UserController extends BaseController
 
     public function index()
     {
+        Gate::authorize('viewAny-user');
+
         $sql = "SELECT * FROM `users`";
         $users = DB::execute($sql);
         
@@ -39,6 +41,8 @@ class UserController extends BaseController
 
     public function create()
     {
+        Gate::authorize('create-user');
+
         $sql = "SELECT * FROM `roles`";
         $roles = DB::execute($sql);
 
@@ -47,6 +51,8 @@ class UserController extends BaseController
 
     public function store($formData)
     {
+        Gate::authorize('create-user');
+
         // Lưu file nếu tồn tại (có gửi vào form)
         if (!empty($formData["avatar"])) {
             $file = $formData["avatar"];
@@ -68,11 +74,13 @@ class UserController extends BaseController
             "role_id" => $formData["role_id"],
             "avatar" => $fileName ?? null,
         ]); 
-        Route::redirect(Route::root() . "?page=user.index");       
+        Route::redirect(Route::path("user.index"));       
     }
 
     public function show($id)
     {
+        Gate::authorize('view-user');
+
         $sql = "SELECT * FROM `users` WHERE (`id` = :id)";
         $user = DB::execute($sql, ["id" => $id])[0];
 
@@ -96,6 +104,8 @@ class UserController extends BaseController
 
     public function edit($id)
     {
+        Gate::authorize('update-user');
+
         $sql = "SELECT * FROM `users` WHERE (`id` = :id)";
         $user = DB::execute($sql, ["id" => $id])[0];
 
@@ -116,6 +126,8 @@ class UserController extends BaseController
 
     public function update($id, $formData)
     {        
+        Gate::authorize('update-user');
+
         $sql = "SELECT * FROM `users` WHERE (`id` = :id)";
         $user = DB::execute($sql, ["id" => $id])[0];
 
@@ -146,11 +158,13 @@ class UserController extends BaseController
             "avatar" => $fileName ?? $user["avatar"],
         ]);
 
-        Route::redirect(Route::root() . "?page=user.index");  
+        Route::redirect(Route::path("user.index"));  
     }
 
     public function delete($id)
     {
+        Gate::authorize('delete-user');
+
         $sql = "SELECT * FROM `users` WHERE (`id` = :id)";
         $user = DB::execute($sql, ["id" => $id])[0];
         if (!empty($user["avatar"])) {
@@ -163,7 +177,7 @@ class UserController extends BaseController
         $sql = "DELETE FROM `users` WHERE (`id` = :id)";
         DB::execute($sql, ["id" => $id]);
 
-        Route::redirect(Route::root() . "?page=user.index");  
+        Route::redirect(Route::path("user.index"));  
     }
 
 }

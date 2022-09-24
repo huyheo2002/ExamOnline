@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <?php 
-        include "./resources/view/partitions/head.php";
+        include "./resources/view/admin/partitions/head.php";
     ?>
     <link rel="stylesheet" href="./resources/css/form.css">
 </head>
@@ -16,11 +16,11 @@
         <!-- <div class="header">This is Header :v</div> -->
         <div class="body">
             <?php
-                include "./resources/view/partitions/sidebar.php";
+                include "./resources/view/admin/partitions/sidebar.php";
             ?>
             <div class="body__content">
                 <?php
-                    include "./resources/view/partitions/header.php";
+                    include "./resources/view/admin/partitions/header.php";
                     ?>
                 <div class="content__main show">
                     <div class="content__wrap">
