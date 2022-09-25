@@ -12,7 +12,17 @@ class BaseModel
     {
         $sql = "SELECT * FROM `".static::$table."`";
 
-        return DB::execute($sql);
+        $result = DB::execute($sql);
+        
+        $collection = array_map(function($record) {
+            $obj = new static;
+            foreach(static::$attributes as $attribute) {
+                $obj->$attribute = $record[$attribute];
+            }
+            return $obj;
+        }, $result);
+
+        return $collection;
     }
 
     static public function create($data)
@@ -26,7 +36,14 @@ class BaseModel
         $sql = "INSERT INTO `".static::$table."`(" . implode(",", $columns) . ")";
         $sql .= " VALUES (" . implode(", ", $valueColumns) . ")";
         
-        $result = DB::execute($sql, $data);
+        try {
+            $result = DB::execute($sql, $data);
+
+            return true;
+        } catch (Exception $e) {
+
+            return false;
+        }
     }
 
     static public function update($data, $id)
@@ -40,16 +57,60 @@ class BaseModel
 
         $data["id"] = $id;
 
-        return DB::execute($sql, $data);   
+        try {
+            $result = DB::execute($sql, $data);
+
+            return true;
+        } catch (Exception $e) {
+
+            return false;
+        }
+    }
+    
+    static public function firstWhere($attribute, $operator, $value) 
+    {
+        $sql = "SELECT * FROM `".static::$table."` WHERE (`". $attribute ."` ".$operator." :".$attribute.")";
+        
+        $result = DB::execute($sql, [$attribute => $value]);
+        if (empty($result)) {
+            return null;
+        } 
+        
+        $record = $result[0];
+        $obj = new static;
+        foreach(static::$attributes as $attribute) {
+            $obj->$attribute = $record[$attribute];
+        }
+        return $obj;
+    }
+
+    static public function allWhere($attribute, $operator, $value) 
+    {
+        
+        $sql = "SELECT * FROM `".static::$table."` WHERE (`". $attribute ."` ".$operator." :".$attribute.")";
+        
+        $result = DB::execute($sql, [$attribute => $value]);
+        if (empty($result)) {
+            return null;
+        } 
+        
+        $collection = array_map(function($record) {
+            $obj = new static;
+            foreach(static::$attributes as $attribute) {
+                $obj->$attribute = $record[$attribute];
+            }
+
+            return $obj;
+        }, $result);
+        
+        return $collection;
     }
 
     static public function find($id) 
     {
-        $sql = "SELECT * FROM `".static::$table."` WHERE (`id` = :id)";
-        
-        return DB::execute($sql, ["id" => $id])[0];
+        return static::firstWhere("id", "=", $id);
     }
-
+    
     static public function destroy($id) 
     {
         $sql = "DELETE FROM `".static::$table."` WHERE (`id` = :id)";

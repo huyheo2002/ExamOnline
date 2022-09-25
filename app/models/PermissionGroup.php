@@ -1,6 +1,7 @@
 <?php 
 
 require_once "./app/models/BaseModel.php";
+require_once "./app/models/Permission.php";
 
 class PermissionGroup extends BaseModel
 {
@@ -13,12 +14,12 @@ class PermissionGroup extends BaseModel
         'updated_at',
     ];
 
-    public function permissions($id) 
+    public function permissions() 
     {
-        $sql = "SELECT `permissions`.* FROM `permissions` WHERE (`permission_group_id` = :id)";
-
-        return DB::execute($sql, [
-            'id' => $id,
-        ]);
+        if (!isset($this->id)) {
+            return [];
+        }
+        
+        return Permission::allWhere("permission_group_id", "=", $this->id);
     }
 }

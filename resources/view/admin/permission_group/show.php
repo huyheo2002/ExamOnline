@@ -33,19 +33,19 @@
                             <div class="formClone">
                                 <div class="item">
                                     <label for="">Id</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["id"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permissionGroup->id ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tên :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["name"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permissionGroup->name ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tạo lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["created_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permissionGroup->created_at ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Cập nhật lúc :</label>
-                                    <input type="text" placeholder="<?= $permissionGroup["updated_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $permissionGroup->updated_at ?>" disabled>
                                 </div>
                                                         
                         <?php 

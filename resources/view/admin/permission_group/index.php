@@ -33,17 +33,15 @@ require_once "./app/Route.php";
                     <?php
                         if(!empty($permissionGroups)) {
                             foreach ($permissionGroups as $permissionGroup) {
-                                
-                            
                     ?>
                         <tr>
-                            <td><?= $permissionGroup["id"] ?></td>
-                            <td><?= $permissionGroup["name"] ?></td>
+                            <td><?= $permissionGroup->id ?></td>
+                            <td><?= $permissionGroup->name ?></td>
                             <td class="list__action">
                                 <!-- test -->
-                                <a href="<?= Route::path('permission-group.show', ['id' => $permissionGroup['id']]) ?>">Hiển thị</a>
-                                <a href="<?= Route::path('permission-group.edit', ['id' => $permissionGroup['id']]) ?>">Chỉnh sửa</a>
-                                <a href="<?= Route::path('permission-group.delete', ['id' => $permissionGroup['id']]) ?>">Xóa</a>
+                                <a href="<?= Route::path('permission-group.show', ['id' => $permissionGroup->id]) ?>">Hiển thị</a>
+                                <a href="<?= Route::path('permission-group.edit', ['id' => $permissionGroup->id]) ?>">Chỉnh sửa</a>
+                                <a href="<?= Route::path('permission-group.delete', ['id' => $permissionGroup->id]) ?>">Xóa</a>
                             </td>
                         </tr>                        
                     <?php
