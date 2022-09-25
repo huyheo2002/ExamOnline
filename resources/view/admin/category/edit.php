@@ -30,21 +30,22 @@ require_once "./app/Route.php";
                         <?php
                         if (!empty($category)) {
 
-                        ?>                        
-                            <form action="<?= Route::path('category.update', ['id' => $category['id']]) ?>" method="POST">
+                        ?>
+                            <form action="<?= Route::path('category.update', ['id' => $category->id]) ?>" method="POST">
                                 <div class="item">
                                     <label for="id">Id :</label>
-                                    <input value="<?= $category['id'] ?>" type="text" name="id" id="id" disabled>
+                                    <input value="<?= $category->id ?>" type="text" name="id" id="id" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="name">Tên :</label>
-                                    <input value="<?= $category['name'] ?>" type="text" name="name" id="name">
+                                    <input value="<?= $category->name ?>" type="text" name="name" id="name">
                                 </div>
-                                <?php 
-                                    $selectedTeachers = [];
-                                    if(!empty($category["users"])) {
-                                        $selectedTeachers = array_map(fn($user) => $user["id"] ?? 0, $category["users"]);
-                                    }                                    
+                                <?php
+                                $selectedTeachers = [];
+                                $currentTeachers = $category->users();
+                                if (!empty($currentTeachers)) {
+                                    $selectedTeachers = array_map(fn ($user) => $user->id ?? 0, $currentTeachers);
+                                }
                                 ?>
                                 <div class="item">
                                     <label for="permission">Giáo viên :</label>
@@ -54,8 +55,8 @@ require_once "./app/Route.php";
                                             foreach ($teachers as $teacher) {
                                         ?>
                                                 <div class="check__wrap">
-                                                    <input class="check_cb" type="checkbox" name="teacher_ids[]" id="chk_teacher_<?= $teacher['id'] ?>" value="<?= $teacher["id"] ?>" <?= in_array($teacher["id"], $selectedTeachers) ? "checked" : "" ?>>
-                                                    <label for="chk_teacher_<?= $teacher['id'] ?>" class="check__name"><?= $teacher["name"] ?></label>
+                                                    <input class="check_cb" type="checkbox" name="teacher_ids[]" id="chk_teacher_<?= $teacher->id ?>" value="<?= $teacher->id ?>" <?= in_array($teacher->id, $selectedTeachers) ? "checked" : "" ?>>
+                                                    <label for="chk_teacher_<?= $teacher->id ?>" class="check__name"><?= $teacher->name ?></label>
                                                 </div>
                                         <?php
                                             }
@@ -66,11 +67,11 @@ require_once "./app/Route.php";
                                 </div>
                                 <div class="item">
                                     <label for="created_at">Tạo lúc :</label>
-                                    <input value="<?= $category['created_at'] ?>" type="text" name="created_at" id="created_at" disabled>
+                                    <input value="<?= $category->created_at ?>" type="text" name="created_at" id="created_at" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="updated_at">Cập nhật lúc :</label>
-                                    <input value="<?= $category['updated_at'] ?>" type="text" name="updated_at" id="updated_at" disabled>
+                                    <input value="<?= $category->updated_at ?>" type="text" name="updated_at" id="updated_at" disabled>
                                 </div>
 
                                 <div class="content__listBtn">
@@ -84,7 +85,7 @@ require_once "./app/Route.php";
 
                         ?>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

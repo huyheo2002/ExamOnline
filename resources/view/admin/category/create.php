@@ -44,8 +44,8 @@ require_once "./app/Route.php";
                                         foreach ($teachers as $teacher) {
                                     ?>
                                             <div class="check__wrap">
-                                                <input class="check_cb" type="checkbox" name="teacher_ids[]" id="chk_teacher_<?= $teacher['id'] ?>" value="<?= $teacher["id"] ?>">
-                                                <label for="chk_teacher_<?= $teacher['id'] ?>" class="check__name"><?= $teacher["name"] ?></label>
+                                                <input class="check_cb" type="checkbox" name="teacher_ids[]" id="chk_teacher_<?= $teacher->id ?>" value="<?= $teacher->id ?>">
+                                                <label for="chk_teacher_<?= $teacher->id ?>" class="check__name"><?= $teacher->name ?></label>
                                             </div>
                                     <?php
                                         }

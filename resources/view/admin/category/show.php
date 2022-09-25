@@ -35,16 +35,17 @@
                             <div class="formClone">
                                 <div class="item">
                                     <label for="">Id</label>
-                                    <input type="text" placeholder="<?= $category["id"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category->id ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Tên :</label>
-                                    <input type="text" placeholder="<?= $category["name"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category->name ?>" disabled>
                                 </div>
                                 <?php 
                                     $selectedTeachers = [];
-                                    if(!empty($category["users"])) {
-                                        $selectedTeachers = array_map(fn($user) => $user["id"] ?? 0, $category["users"]);
+                                    $currentTeachers = $category->users();
+                                    if(!empty($currentTeachers)) {
+                                        $selectedTeachers = array_map(fn($user) => $user->id ?? 0, $currentTeachers);
                                     }                                    
                                 ?>
                                 <div class="item">
@@ -55,8 +56,8 @@
                                             foreach ($teachers as $teacher) {
                                         ?>
                                                 <div class="check__wrap">
-                                                    <input class="check_cb" type="checkbox" name="teacher_ids[]" id="chk_teacher_<?= $teacher['id'] ?>" value="<?= $teacher["id"] ?>" <?= in_array($teacher["id"], $selectedTeachers) ? "checked" : "" ?> disabled>
-                                                    <label for="chk_teacher_<?= $teacher['id'] ?>" class="check__name"><?= $teacher["name"] ?></label>
+                                                    <input class="check_cb" type="checkbox" name="teacher_ids[]" id="chk_teacher_<?= $teacher->id ?>" value="<?= $teacher->id ?>" <?= in_array($teacher->id, $selectedTeachers) ? "checked" : "" ?> disabled>
+                                                    <label for="chk_teacher_<?= $teacher->id ?>" class="check__name"><?= $teacher->name ?></label>
                                                 </div>
                                         <?php
                                             }
@@ -67,11 +68,11 @@
                                 </div>
                                 <div class="item">
                                     <label for="">Tạo lúc :</label>
-                                    <input type="text" placeholder="<?= $category["created_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category->created_at ?>" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="">Cập nhật lúc :</label>
-                                    <input type="text" placeholder="<?= $category["updated_at"] ?>" disabled>
+                                    <input type="text" placeholder="<?= $category->updated_at ?>" disabled>
                                 </div>
 
                             <?php

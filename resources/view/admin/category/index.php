@@ -38,15 +38,16 @@ require_once "./app/Route.php";
                             foreach ($categories as $category) {
                         ?>
                                 <tr>
-                                    <td><?= $category["id"] ?></td>
-                                    <td><?= $category["name"] ?></td>
+                                    <td><?= $category->id ?></td>
+                                    <td><?= $category->name ?></td>
                                     <td>
                                         <select class="list__multiple" multiple>
                                             <?php
-                                            if (!empty($category["users"])) {
-                                                foreach ($category["users"] as $user) {
+                                            $users = $category->users();
+                                            if (!empty($users)) {
+                                                foreach ($users as $user) {
                                             ?>
-                                                    <option value="<?= $user["id"] ?>"><?= $user["name"] ?></option>
+                                                    <option value="<?= $user->id ?>"><?= $user->name ?></option>
                                             <?php
                                                 }
                                             }
@@ -56,9 +57,9 @@ require_once "./app/Route.php";
                                     </td>
                                     <td class="list__action">
                                         <!-- test -->
-                                        <a href="<?= Route::path('category.show', ['id' => $category['id']]) ?>">Hiển thị</a>
-                                        <a href="<?= Route::path('category.edit', ['id' => $category['id']]) ?>">Chỉnh sửa</a>
-                                        <a href="<?= Route::path('category.delete', ['id' => $category['id']]) ?>">Xóa</a>
+                                        <a href="<?= Route::path('category.show', ['id' => $category->id]) ?>">Hiển thị</a>
+                                        <a href="<?= Route::path('category.edit', ['id' => $category->id]) ?>">Chỉnh sửa</a>
+                                        <a href="<?= Route::path('category.delete', ['id' => $category->id]) ?>">Xóa</a>
                                     </td>
                                 </tr>
                         <?php
