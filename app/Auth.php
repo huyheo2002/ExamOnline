@@ -2,6 +2,8 @@
 
 require_once './app/DB.php';
 require_once './app/Route.php';
+require_once './app/models/User.php';
+require_once './app/models/Role.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -9,82 +11,66 @@ if (session_status() === PHP_SESSION_NONE) {
 
 class Auth
 {
-    static public function register($dataRegister)
+    /**
+     * Đăng nhập sử dụng form. Sẽ so sánh mật khẩu.
+     * @return bool
+     */
+    static public function attempt($credentials)
     {
-        $sql = "INSERT INTO `users`(`name`, `email`, `username`, `password`, `phone`, `role_id`, `avatar`) VALUES(:name, :email, :username, :password, :phone, :role_id, :avatar)";
-        $dataRegister['role_id'] = 4;
-
-        try {
-            DB::execute($sql, $dataRegister);
-
-            return true;
-        } catch (Exception $e) {
+        $user = User::firstWhere('username', '=', $credentials["username"]);
+        if (!$user) { 
+            // Không có tài khoản này
             return false;
         }
-    }
-
-    static public function attempt($dataLogin)
-    {
-        $sql = "SELECT * FROM `users` WHERE ((`username` = :username) AND (`password` = :password))";
-        $users = DB::execute($sql, $dataLogin);
-
-        return !empty($users) ? $users[0] : [];
-    }
-
-    static public function login($dataLogin)
-    {
-        $user = Auth::attempt($dataLogin);
-
-        if (empty($user)) {
-            return false;
-        } 
-
-        $_SESSION['user_id'] = $user['id']; // Lưu id user hiện tại
         
+        if ($user->password !== $credentials['password']) {
+            // Mật khẩu không đúng
+            return false;
+        }
+
+        static::login($user);
         return true;
     }
 
+    /**
+     * Đăng nhập sử dụng model user. Không cần mật khẩu.
+     * @return void
+     */
+    static public function login(User $user)
+    {
+        $_SESSION['user_id'] = $user->id; // Lưu id user hiện tại
+        $_SESSION['username'] = $user->username; // Xác thực user. Nên sử dụng token thay vì username
+    }
+
+    /**
+     * Kiểm tra đăng nhập. Đồng thời xác thực phiên đăng nhập.
+     * @return bool
+     */
     static public function check() 
     {
-        $sql = "SELECT * FROM `users` WHERE id=:id";
-        $users = DB::execute($sql, [
-            "id" => $_SESSION["user_id"] ?? -1,
-        ]);
+        $user = self::user();
 
-        return !empty($users);
+        return ( $user !== null
+            && isset($_SESSION['username']) 
+            && $user->username == $_SESSION['username']
+        );
     }
 
+    /**
+     * Đăng xuất.
+     * @return void
+     */
     static public function logout()
     {
-        if (isset($_SESSION["user_id"])) {
-            unset($_SESSION["user_id"]);
-
-            return true;
-        }
-
-        return false;
+        unset($_SESSION["user_id"]);
+        unset($_SESSION["username"]);
     }
 
+    /**
+     * Lấy user đang đăng nhập
+     */
     static public function user()
     {
-        $sql = "SELECT * FROM `users` WHERE id=:id";
-        $users = DB::execute($sql, [
-            "id" => $_SESSION["user_id"] ?? -1,
-        ]);
-
-        $storagePath = "storage" . DIRECTORY_SEPARATOR . "user_avatar" . DIRECTORY_SEPARATOR;
-        foreach ($users as $key => $user) {
-            $link = "https://via.placeholder.com/150";
-            if (!empty($user["avatar"])) {
-                clearstatcache();
-                if (file_exists($storagePath . $user["avatar"])) {
-                    $link = "data:image/png; base64, " . base64_encode(file_get_contents($storagePath . $user["avatar"]));
-                }
-            }
-            $users[$key]["avatar"] = $link;
-        }
-
-        return !empty($users) ? $users[0] : [];
+        return User::find($_SESSION['user_id'] ?? -1);
     }
-
 }

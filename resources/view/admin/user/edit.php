@@ -30,13 +30,6 @@ require_once "./app/models/User.php";
                         <h2 class="content__title">Chỉnh sửa người dùng</h2>
                         <?php
                         if (!empty($user)) {
-                            $link = "https://via.placeholder.com/150";
-                            if (!empty($user->avatar)) {
-                                clearstatcache();
-                                if (file_exists(User::AVATAR_PATH . $user->avatar)) {
-                                    $link = "data:image/png; base64, " . base64_encode(file_get_contents(User::AVATAR_PATH . $user->avatar));
-                                }
-                            }
                         ?>                        
                             <form action="<?= Route::path('user.update', ['id' => $user->id]) ?>" method="POST" enctype="multipart/form-data">
                                 <div class="item">
@@ -83,7 +76,7 @@ require_once "./app/models/User.php";
                                 <div class="item">
                                     <label for="avatar">Ảnh đại diện :</label>
                                     <input type="file" name="avatar" id="avatar">
-                                    <img src="<?= $link ?>" alt="" style="max-width: 150px;">
+                                    <img src="<?= $user->getAvatarLink() ?>" alt="" style="max-width: 150px;">
                                 </div>
                                 <div class="item">
                                     <label for="created_at">Tạo lúc :</label>

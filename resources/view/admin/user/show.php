@@ -30,13 +30,6 @@ require_once "app/models/User.php";
                         <h2 class="content__title">Hiển thị người dùng</h2>
                         <?php
                         if (!empty($user)) {
-                            $link = "https://via.placeholder.com/150";
-                            if (!empty($user->avatar)) {
-                                clearstatcache();
-                                if (file_exists(USER::AVATAR_PATH . $user->avatar)) {
-                                    $link = "data:image/png; base64, " . base64_encode(file_get_contents(USER::AVATAR_PATH . $user->avatar));
-                                }
-                            }
                         ?>
                             <!-- form ảo :v -->
                             <div class="formClone">
@@ -70,7 +63,7 @@ require_once "app/models/User.php";
                                 </div>
                                 <div class="item">
                                     <label for="avatar">Ảnh đại diện :</label>
-                                    <img src="<?= $link ?>" alt="" style="max-width: 150px;">
+                                    <img src="<?= $user->getAvatarLink() ?>" alt="" style="max-width: 150px;">
                                 </div>
                                 <div class="item">
                                     <label for="">Tạo lúc :</label>

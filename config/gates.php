@@ -12,7 +12,7 @@ if (Auth::check()) { // Đã đăng nhập
     // Lấy các permission mà user có
     $sql = "SELECT `permissions`.* FROM `roles_permissions`, `permissions` WHERE ((`roles_permissions`.`role_id` = :role_id) AND (`permissions`.`id` = `roles_permissions`.`permission_id`))";
     $userPermissions = DB::execute($sql, [
-        "role_id" => Auth::user()["role_id"],
+        "role_id" => Auth::user()->role_id,
     ]);
     $userPermissionIds = array_map(fn($userPermission) => $userPermission["id"], $userPermissions);
 

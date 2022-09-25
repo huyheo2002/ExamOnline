@@ -2,6 +2,7 @@
 
 require_once "./app/Auth.php";
 require_once "./app/Route.php";
+require_once "./app/models/Role.php";
 
 class LoginController 
 {
@@ -11,15 +12,15 @@ class LoginController
             return Route::root();
         }
 
-        switch (Auth::user()['role_id'])
+        switch (Auth::user()->role_id)
         {
-            case 1:
-            case 2:
-            case 3:
+            case Role::OF["admin"]:
+            case Role::OF["staff"]:
+            case Role::OF["teacher"]:
                 return Route::path("admin"); 
                 break;
 
-            case 4:
+            case Role::OF["student"]:
             default:
                 return Route::path("home"); 
                 break;
@@ -38,7 +39,7 @@ class LoginController
             'password' => $_POST["password"]
         ];
     
-        if (!Auth::login($formData)) {
+        if (!Auth::attempt($formData)) {
             echo '<script>alert("Đăng nhập không thành công!")</script>';
 
             return Route::redirect(Route::path("login"));
@@ -49,10 +50,7 @@ class LoginController
 
     public function logout() 
     {
-        // Đăng xuất không thành công :V
-        if (!Auth::logout()) {
-            Route::redirect(Route::path(""));
-        };
+        Auth::logout();
 
         Route::redirect(Route::path(""));
     }

@@ -34,19 +34,12 @@ require_once "./app/models/User.php";
                         </tr>
                     <?php
                         if(!empty($users)) {
-                            foreach ($users as $user) {
-                                $link = "https://via.placeholder.com/150";
-                                if (!empty($user->avatar)) {
-                                    clearstatcache();
-                                    if (file_exists(User::AVATAR_PATH . $user->avatar)) {
-                                        $link = "data:image/png; base64, " . base64_encode(file_get_contents(USER::AVATAR_PATH . $user->avatar));
-                                    }
-                                }                
+                            foreach ($users as $user) {         
                     ?>
                         <tr>
                             <td> 
                                 <div class="user-avatar" style="width: 150px; height: 150px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="<?= $link ?>" alt="Avatar" style="max-width: 100%; max-height: 100%;"> 
+                                    <img src="<?= $user->getAvatarLink() ?>" alt="Avatar" style="max-width: 100%; max-height: 100%;"> 
                                 </div>
                             </td>
                             <td><?= $user->name ?></td>

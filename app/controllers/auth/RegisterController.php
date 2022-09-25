@@ -2,6 +2,7 @@
 
 require_once "./app/Auth.php";
 require_once "./app/Route.php";
+require_once "./app/models/User.php";
 
 class RegisterController 
 {
@@ -24,7 +25,7 @@ class RegisterController
             'avatar' => $_POST['avatar'] ?? '',
         ];
 
-        if (!Auth::register($formData)) { // Đăng kí không thành công
+        if (!$user = User::create($formData)) { // Không thể tạo user
             echo '<script>alert("Đăng kí không thành công!")</script>';
 
             return Route::redirect(Route::path('register'));

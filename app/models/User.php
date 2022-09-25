@@ -5,8 +5,10 @@ require_once "./app/models/Role.php";
 
 class User extends BaseModel
 {
-    // Ảnh lưu ở đâu
-    // DIRECTORY_SEPARATOR : chỉ là dấu / :V nma cồng kềnh hơn (dấu / tùy theo hệ điều hành vd linux với window)
+    /**
+     * Nơi lưu avatar.
+     * DIRECTORY_SEPARATOR : chỉ là dấu / :V nma cồng kềnh hơn (dấu / tùy theo hệ điều hành vd linux với window)
+     */
     public const AVATAR_PATH = "storage" . DIRECTORY_SEPARATOR . "user_avatar" . DIRECTORY_SEPARATOR;
 
     static protected $table = "users";
@@ -27,5 +29,18 @@ class User extends BaseModel
     public function role() 
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    // Hàm custom 
+    public function getAvatarLink() 
+    {   
+        $link = "https://via.placeholder.com/150";
+        if (!empty($this->avatar)) {
+            clearstatcache();
+            if (file_exists(static::AVATAR_PATH . $this->avatar)) {
+                $link = "data:image/png; base64, " . base64_encode(file_get_contents(static::AVATAR_PATH . $this->avatar));
+            }
+        }       
+        return $link;
     }
 }

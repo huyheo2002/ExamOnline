@@ -60,7 +60,7 @@ class DB
         if (!$result) {
             // var_dump(self::$connection->errorInfo());
             // die;
-            throw new Exception(self::$connection->errorInfo()[2]);
+            throw new Exception(DB::getConnection()->errorInfo()[2]);
         }
         
         // Hiển thị kết quả, vòng lặp sau đây sẽ dừng lại khi đã duyệt qua toàn bộ kết quả trả về
