@@ -4,11 +4,11 @@ class HomeController
 {
     public function index() 
     {
-        include ("./resources/view/index.php");
+        return include("./resources/view/index.php");
     }
 
-    public function showCurrentUser() 
+    public function showProfile() 
     {
-        //
+        return include("./resources/view/web/profile.php");
     }
 }
