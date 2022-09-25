@@ -1,5 +1,8 @@
 <?php
 require_once "./app/controllers/ResourceController.php";
+require_once "./app/models/Question.php";
+require_once "./app/models/Category.php";
+require_once "./app/models/Answer.php";
 require_once "./app/DB.php";
 require_once "./app/Route.php";
 
@@ -7,85 +10,133 @@ class QuestionController extends ResourceController
 {
     public function index()
     {
-        Gate::authorize('viewAny-permission');
+        Gate::authorize('viewAny-question');
 
-        $sql = "SELECT * FROM `permissions`";
-        $permissions = DB::execute($sql);
-        // var_dump($permission);
-        // die;
-        // lấy view
-        include ("./resources/view/admin/permission/index.php");
-        
+        $questions = Question::all();
+
+        return include ("./resources/view/admin/question/index.php");
     }
 
     public function create()
     {
-        Gate::authorize('create-permission');
+        Gate::authorize('create-question');
 
-        $sql = "SELECT * FROM `permission_groups`";
-        $permissionGroups = DB::execute($sql);
-        include ("./resources/view/admin/permission/create.php");
+        $categories = Category::all();
+        
+        return include ("./resources/view/admin/question/create.php");
     }
 
     public function store($formData)
     {
-        Gate::authorize('create-permission');
+        Gate::authorize('create-question');
         
-        $sql = "INSERT INTO `permissions` (`id`, `name`, `key`, `permission_group_id`, `created_at`, `updated_at`) VALUES (null, :name, :key, :permission_group_id, null, null)";
-        $test = DB::execute($sql, 
-        [
-            "name" => $formData["name"],
-            "key" => $formData["key"],
-            "permission_group_id" => $formData["permission_group_id"]
-        ]);         
-        Route::redirect(Route::path("permission.index"));       
+        // Validate 
+        if (empty($formData["content"])) {
+            dd("Không được bro");
+            return;
+        }
+        if (empty($formData["answers"]["correct"])) {
+            dd("Không có đáp án à bro");
+            return;
+        }
+
+        $creatorId = (Auth::check()) ? Auth::user()->id : -1;
+        $question = Question::create([
+            "content" => $formData["content"],
+            "category_id" => $formData["category_id"],
+            "created_by" => $creatorId,
+        ]);
+        if ($question !== null) {
+            foreach($formData["answers"]["content"] as $count => $content) {
+                Answer::create([
+                    "content" => $content,
+                    "correct" => ($count == $formData["answers"]["correct"]),
+                    "question_id" => $question->id,
+                ]);
+            }
+        }
+
+        return Route::redirect(Route::path("question.index"));       
     }
 
     public function show($id)
     {
-        Gate::authorize('view-permission');
+        Gate::authorize('view-question');
 
-        $sql = "SELECT * FROM `permissions` WHERE (`id` = :id)";
-        $permission = DB::execute($sql, ["id" => $id])[0];
+        if (!$question = Question::find($id)) {
+            Route::error(404);
+        }
+        $categories = Category::all();
         
-        $sql = "SELECT * FROM `permissions` WHERE (`id` = :id)";
-        $permission["permission_group"] = DB::execute($sql, ["id" => $permission["permission_group_id"]])[0];
-        include ("./resources/view/admin/permission/show.php");
+        return include ("./resources/view/admin/question/show.php");
     }
 
     public function edit($id)
     {
-        Gate::authorize('update-permission');
+        Gate::authorize('update-question');
 
-        $sql = "SELECT * FROM `permissions` WHERE (`id` = :id)";
-        $permission = DB::execute($sql, ["id" => $id])[0];
-
-        $sql = "SELECT * FROM `permission_groups`";
-        $permissionGroups = DB::execute($sql);
-        include ("./resources/view/admin/permission/edit.php");
+        if (!$question = Question::find($id)) {
+            return Route::error(404);
+        }
+        $categories = Category::all();
+        
+        return include ("./resources/view/admin/question/edit.php");
     }
 
     public function update($id, $formData)
     {
-        Gate::authorize('update-permission');
+        Gate::authorize('update-question');
 
-        $sql = "UPDATE `permissions` SET `name` = :name, `key` = :key, `permission_group_id` = :permission_group_id WHERE (`id` = :id)";
-        DB::execute($sql, [
-            "id" => $id,
-            "name" => $formData["name"],
-            "key" => $formData["key"],
-            "permission_group_id" => $formData["permission_group_id"]
-        ]);
-        Route::redirect(Route::path("permission.index"));  
+        // Validate 
+        if (!$question = Question::find($id)) {
+            return Route::error(404);
+        }
+        if (empty($formData["content"])) {
+            dd("Không được bro");
+            return;
+        }
+        if (empty($formData["answers"]["correct"])) {
+            dd("Không có đáp án à bro");
+            return;
+        }
+
+        $creatorId = $question->created_by ?? -1;
+        $question = Question::update([
+            "content" => $formData["content"],
+            "category_id" => $formData["category_id"],
+            "created_by" => $creatorId,
+        ], $id);
+        $answerIds = array_map(fn($answer) => $answer->id, $question->answers());
+        foreach($answerIds as $answerId) {
+            Answer::destroy($answerId);
+        }
+        if ($question !== null) {
+            foreach($formData["answers"]["content"] as $count => $content) {
+                Answer::create([
+                    "content" => $content,
+                    "correct" => ($count == $formData["answers"]["correct"]),
+                    "question_id" => $question->id,
+                ]);
+            }
+        }
+
+        return Route::redirect(Route::path("question.index"));  
     }
 
     public function delete($id)
     {
-        Gate::authorize('delete-permission');
+        Gate::authorize('delete-question');
 
-        $sql = "DELETE FROM `permissions` WHERE (`id` = :id)";
-        DB::execute($sql, ["id" => $id]);
-        Route::redirect(Route::path("permission.index"));  
+        if (!$question = Question::find($id)) {
+            return Route::error(404);
+        }
+        $answerIds = array_map(fn($answer) => $answer->id, $question->answers());
+        foreach($answerIds as $answerId) {
+            Answer::destroy($answerId);
+        }
+        Question::destroy($id);
+
+        return Route::redirect(Route::path("question.index"));  
     }
 
 }

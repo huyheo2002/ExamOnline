@@ -42,17 +42,13 @@
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý danh mục</p>
         </a></li>
-        <li><a href="<?= Route::path('permission.index') ?>">
+        <li><a href="<?= Route::path('question.index') ?>">
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý câu hỏi</p>
         </a></li>
         <li><a href="<?= Route::path('user.index') ?>">
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý đề thi</p>
-        </a></li>
-        <li><a href="<?= Route::path('role.index') ?>">
-            <i class="fa-solid fa-bars"></i>
-            <p class="body__sidebar_text">Quản lý đáp án</p>
         </a></li>
     </ul>
 </div>

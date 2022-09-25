@@ -23,31 +23,30 @@ require_once "./app/Route.php";
                     include "./resources/view/admin/partitions/header.php";
                     ?>
                 <div class="content__main show">
-                    <h2 class="content__title">Danh sách quyền</h2>
+                    <h2 class="content__title">Danh sách câu hỏi</h2>
                     <table>
                         <tr>
                             <th style="width: 5%">Id</th>
-                            <th style="width: 30%">Tên quyền</th>
-                            <th style="width: 20%">Key</th>
-                            <th style="width: 5%">Nhóm quyền</th>
+                            <th style="width: 30%">Nội dung</th>
+                            <th style="width: 20%">Danh mục</th>
+                            <th style="width: 5%">Tạo bởi</th>
                             <th style="width: 40%">Hoạt động</th>
                         </tr>
                     <?php
-                        if(!empty($permissions)) {
-                            foreach ($permissions as $permission) {
-                                                            
+                        if(!empty($questions)) {
+                            foreach ($questions as $question) {                   
                     ?>
                         <tr>
-                            <td><?= $permission["id"] ?></td>
-                            <td><?= $permission["name"] ?></td>
-                            <td><?= $permission["key"] ?></td>
-                            <td><?= $permission["permission_group_id"] ?></td>
+                            <td><?= $question->id ?></td>
+                            <td><?= $question->content ?></td>
+                            <td><?= $question->category()->name ?? "Không có danh mục" ?></td>
+                            <td><?= $question->creator()->name ?? "Ẩn danh" ?></td>
                             
                             <td class="list__action">
                                 <!-- test -->
-                                <a href="<?= Route::path('permission.show', ['id' => $permission['id']]) ?>">Hiển thị</a>
-                                <a href="<?= Route::path('permission.edit', ['id' => $permission['id']]) ?>">Chỉnh sửa</a>
-                                <a href="<?= Route::path('permission.delete', ['id' => $permission['id']]) ?>">Xóa</a>
+                                <a href="<?= Route::path('question.show', ['id' => $question->id]) ?>">Hiển thị</a>
+                                <a href="<?= Route::path('question.edit', ['id' => $question->id]) ?>">Chỉnh sửa</a>
+                                <a href="<?= Route::path('question.delete', ['id' => $question->id]) ?>">Xóa</a>
                             </td>
                         </tr>                        
                     <?php
@@ -56,7 +55,7 @@ require_once "./app/Route.php";
                     ?>
                     </table>
                     <div class="content__listBtn">
-                        <a href="<?= Route::path('permission.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <a href="<?= Route::path('question.create') ?>" class="content__btnAdd">Thêm mới</a>
                         <button class="content__btnExit">
                             <a href="<?= Route::path('login') ?>">Thoát</a>    
                         </button>                    

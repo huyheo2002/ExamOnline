@@ -62,9 +62,9 @@ class Route
     public static function root()
     {
         // khi sd cho local mà có folder . . . :V
-        return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
+        // return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
         // khi sd virtual host
-        // return "http://".$_SERVER["HTTP_HOST"];
+        return "http://".$_SERVER["HTTP_HOST"];
     }
 
     public static function path($routeName, $data = [])
@@ -79,10 +79,13 @@ class Route
 
     public static function error($statusCode) 
     {
+        http_response_code($statusCode);
         switch ($statusCode) {
             case 403:
-                http_response_code($statusCode);
                 include "./resources/view/error/403.php";
+            break;
+            case 404:
+                include "./resources/view/error/404.php";
             break;
         }
         die;

@@ -26,50 +26,68 @@ require_once "./app/Route.php";
                 ?>
                 <div class="content__main show">
                     <div class="content__wrap">
-                        <h2 class="content__title">Chỉnh sửa quyền</h2>
+                        <h2 class="content__title">Chỉnh sửa câu hỏi</h2>
                         <?php
-                        if (!empty($permission)) {
+                        if (!empty($question)) {
 
-                        ?>                        
-                            <form action="<?= Route::path('permission.update', ['id' => $permission['id']]) ?>" method="POST">
+                        ?>
+                            <form action="<?= Route::path('question.update', ['id' => $question->id]) ?>" method="POST">
                                 <div class="item">
                                     <label for="id">Id :</label>
-                                    <input value="<?= $permission['id'] ?>" type="text" name="id" id="id" disabled>
+                                    <input value="<?= $question->id ?>" type="text" name="id" id="id" disabled>
                                 </div>
                                 <div class="item">
-                                    <label for="name">Tên :</label>
-                                    <input value="<?= $permission['name'] ?>" type="text" name="name" id="name">
+                                    <label for="content">Nội dung :</label>
+                                    <input value="<?= $question->content ?>" type="text" name="content" id="content">
                                 </div>
                                 <div class="item">
-                                    <label for="key">Khóa :</label>
-                                    <input value="<?= $permission['key'] ?>" type="text" name="key" id="key">
-                                </div>
-                                <div class="item">
-                                    <label for="name">Nhóm</label>
-                                    <select name="permission_group_id" id="permission_group_id">
-                                        <?php 
-                                            if(!empty($permissionGroups)) {
-                                                foreach($permissionGroups as $permissionGroup) {                                                                                   
+                                    <label for="category_id">Danh mục :</label>
+                                    <select name="category_id" id="category_id">
+                                        <?php
+                                        if (!empty($categories)) {
+                                            foreach ($categories as $category) {
                                         ?>
-                                                <option value="<?= $permissionGroup["id"] ?>" <?= ($permissionGroup["id"] === $permission["permission_group_id"]) ? 'selected' : '' ?> ><?= $permissionGroup["name"] ?></option>                                   
-                                        <?php 
-                                                }
-                                            } 
+                                                <option value="<?= $category->id ?>" <?= ($category->id == $question->category_id) ? "selected" : "" ?>><?= $category->name ?></option>
+                                        <?php
+                                            }
+                                        }
                                         ?>
                                     </select>
                                 </div>
                                 <div class="item">
+                                    <label for="answers">Các câu trả lời :</label>
+                                    <button id="addAnswer">
+                                        Thêm câu trả lời
+                                    </button>
+                                    <div name="answers[]" id="answers">
+                                        <!-- Answer will be added here -->
+                                        <?php
+                                        $answers = $question->answers();
+                                        if (!empty($answers)) {
+                                            foreach ($answers as $count => $answer) {
+                                        ?>
+                                                <div class="check__wrap">
+                                                    <input class="check_cb" type="radio" name="answers[correct]" value="<?= $count ?>" <?= $answer->correct ? "checked" : "" ?>>
+                                                    <textarea class="check__name" name="answers[content][<?= $count ?>]"><?= $answer->content ?></textarea>
+                                                </div>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="item">
                                     <label for="created_at">Tạo lúc :</label>
-                                    <input value="<?= $permission['created_at'] ?>" type="text" name="created_at" id="created_at" disabled>
+                                    <input value="<?= $question->created_at ?>" type="text" name="created_at" id="created_at" disabled>
                                 </div>
                                 <div class="item">
                                     <label for="updated_at">Cập nhật lúc :</label>
-                                    <input value="<?= $permission['updated_at'] ?>" type="text" name="updated_at" id="updated_at" disabled>
+                                    <input value="<?= $question->updated_at ?>" type="text" name="updated_at" id="updated_at" disabled>
                                 </div>
 
                                 <div class="content__listBtn">
                                     <input type="submit" value="Cập nhật" class="content__btnAdd">
-                                    <a class="content__btnExit" href="<?= Route::path('permission.index') ?>">Trở về</a>
+                                    <a class="content__btnExit" href="<?= Route::path('question.index') ?>">Trở về</a>
                                 </div>
                             </form>
 
@@ -78,12 +96,13 @@ require_once "./app/Route.php";
 
                         ?>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
         <!-- <div class="footer">This is footer :vvv</div> -->
     </div>
+    <script src="./resources/js/appendAnswer.js" type="module"></script>
 </body>
 
 </html>
