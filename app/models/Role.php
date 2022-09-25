@@ -3,9 +3,9 @@
 require_once "./app/models/BaseModel.php";
 require_once "./app/models/Permission.php";
 
-class PermissionGroup extends BaseModel
+class Role extends BaseModel
 {
-    static protected $table = "permission_groups";
+    static protected $table = "roles";
 
     static protected $attributes = [
         'id',
@@ -16,6 +16,6 @@ class PermissionGroup extends BaseModel
 
     public function permissions() 
     {
-        return $this->hasMany(Permission::class, 'id', 'permission_group_id');
+        return $this->belongsToMany(Permission::class, 'roles_permissions', 'role_id', 'permission_id');
     }
 }

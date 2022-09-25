@@ -39,15 +39,15 @@ require_once "./app/Route.php";
 
                         ?>
                                 <tr>
-                                    <td><?= $role["id"] ?></td>
-                                    <td><?= $role["name"] ?></td>
+                                    <td><?= $role->id ?></td>
+                                    <td><?= $role->name ?></td>
                                     <td>
                                         <select class="list__multiple" multiple>
                                             <?php
-                                            if (!empty($role["permissions"])) {
-                                                foreach ($role["permissions"] as $permission) {
+                                            if (!empty($role->permissions())) {
+                                                foreach ($role->permissions() as $permission) {
                                             ?>
-                                                    <option value="<?= $permission["id"] ?>"><?= $permission["name"] ?></option>
+                                                    <option value="<?= $permission->id ?>"><?= $permission->name ?></option>
                                             <?php
                                                 }
                                             }
@@ -57,9 +57,9 @@ require_once "./app/Route.php";
                                     </td>
                                     <td class="list__action">
                                         <!-- test -->
-                                        <a href="<?= Route::path('role.show', ['id' => $role['id']]) ?>">Hiển thị</a>
-                                        <a href="<?= Route::path('role.edit', ['id' => $role['id']]) ?>">Chỉnh sửa</a>
-                                        <a href="<?= Route::path('role.delete', ['id' => $role['id']]) ?>">Xóa</a>
+                                        <a href="<?= Route::path('role.show', ['id' => $role->id]) ?>">Hiển thị</a>
+                                        <a href="<?= Route::path('role.edit', ['id' => $role->id]) ?>">Chỉnh sửa</a>
+                                        <a href="<?= Route::path('role.delete', ['id' => $role->id]) ?>">Xóa</a>
                                     </td>
                                 </tr>
                         <?php

@@ -43,14 +43,15 @@ require_once "./app/Route.php";
                                     if (!empty($permissionGroups)) {
                                         foreach ($permissionGroups as $permissionGroup) {
                                     ?>
-                                            <h3 class="check__title"><?= $permissionGroup["name"]?>; </h3>
+                                            <h3 class="check__title"><?= $permissionGroup->name ?>; </h3>
                                             <?php
-                                            if (!empty($permissionGroup["permissions"])) {
-                                                foreach ($permissionGroup["permissions"] as $permission) {
+                                            $permissions = $permissionGroup->permissions();
+                                            if (!empty($permissions)) {
+                                                foreach ($permissions as $permission) {
                                             ?>
                                                 <div class="check__wrap">
-                                                    <input class="check_cb" type="checkbox" name="permission_ids[]" id="chk_permission_<?= $permission['id'] ?>" value="<?= $permission["id"] ?>">
-                                                    <label for="chk_permission_<?= $permission['id'] ?>" class="check__name"><?= $permission["name"] ?></label>
+                                                    <input class="check_cb" type="checkbox" name="permission_ids[]" id="chk_permission_<?= $permission->id ?>" value="<?= $permission->id ?>">
+                                                    <label for="chk_permission_<?= $permission->id ?>" class="check__name"><?= $permission->name ?></label>
                                                 </div>
                                     <?php
                                                 }

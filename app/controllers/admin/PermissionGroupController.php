@@ -48,7 +48,7 @@ class PermissionGroupController extends ResourceController
         
         $permissionGroup = PermissionGroup::find($id);
         
-        include ("./resources/view/admin/permission_group/edit.php");
+        return include ("./resources/view/admin/permission_group/edit.php");
     }
 
     public function update($id, $formData)
@@ -59,7 +59,7 @@ class PermissionGroupController extends ResourceController
             'name' => $formData['name'],
         ], $id);
         
-        Route::redirect(Route::path("permission-group.index"));  
+        return Route::redirect(Route::path("permission-group.index"));  
     }
 
     public function delete($id)
@@ -68,7 +68,7 @@ class PermissionGroupController extends ResourceController
         
         PermissionGroup::destroy($id);
         
-        Route::redirect(Route::path("permission-group.index"));  
+        return Route::redirect(Route::path("permission-group.index"));  
     }
 
 }
