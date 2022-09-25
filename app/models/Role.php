@@ -2,6 +2,7 @@
 
 require_once "./app/models/BaseModel.php";
 require_once "./app/models/Permission.php";
+require_once "./app/models/User.php";
 
 class Role extends BaseModel
 {
@@ -17,5 +18,10 @@ class Role extends BaseModel
     public function permissions() 
     {
         return $this->belongsToMany(Permission::class, 'roles_permissions', 'role_id', 'permission_id');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'id', 'role_id');
     }
 }

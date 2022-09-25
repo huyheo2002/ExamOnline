@@ -57,7 +57,7 @@
                                         if(!empty($roles)) {
                                             foreach($roles as $role) {                                                                                   
                                     ?>
-                                            <option value="<?= $role["id"] ?>"><?= $role["name"] ?></option>                                    
+                                            <option value="<?= $role->id ?>"><?= $role->name ?></option>                                    
                                     <?php 
                                             }
                                         } 

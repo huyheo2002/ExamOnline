@@ -1,5 +1,6 @@
 <?php
 require_once "./app/Route.php";
+require_once "./app/models/User.php";
 
 ?>
 
@@ -34,21 +35,27 @@ require_once "./app/Route.php";
                     <?php
                         if(!empty($users)) {
                             foreach ($users as $user) {
-                                                            
+                                $link = "https://via.placeholder.com/150";
+                                if (!empty($user->avatar)) {
+                                    clearstatcache();
+                                    if (file_exists(User::AVATAR_PATH . $user->avatar)) {
+                                        $link = "data:image/png; base64, " . base64_encode(file_get_contents(USER::AVATAR_PATH . $user->avatar));
+                                    }
+                                }                
                     ?>
                         <tr>
                             <td> 
                                 <div class="user-avatar" style="width: 150px; height: 150px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="<?= $user["avatar"] ?>" alt="Avatar" style="max-width: 100%; max-height: 100%;"> 
+                                    <img src="<?= $link ?>" alt="Avatar" style="max-width: 100%; max-height: 100%;"> 
                                 </div>
                             </td>
-                            <td><?= $user["name"] ?></td>
-                            <td><?= $user["role"]["name"] ?></td>
+                            <td><?= $user->name ?></td>
+                            <td><?= $user->role()->name ?? "Không có vai trò" ?></td>
                             <td class="list__action" style="height: 158px; padding: 63px 8px;">
                                 <!-- test -->
-                                <a href="<?= Route::path('user.show', ['id' => $user['id']]) ?>">Hiển thị</a>
-                                <a href="<?= Route::path('user.edit', ['id' => $user['id']]) ?>">Chỉnh sửa</a>
-                                <a href="<?= Route::path('user.delete', ['id' => $user['id']]) ?>">Xóa</a>
+                                <a href="<?= Route::path('user.show', ['id' => $user->id]) ?>">Hiển thị</a>
+                                <a href="<?= Route::path('user.edit', ['id' => $user->id]) ?>">Chỉnh sửa</a>
+                                <a href="<?= Route::path('user.delete', ['id' => $user->id]) ?>">Xóa</a>
                             </td>
                         </tr>                        
                     <?php
