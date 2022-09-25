@@ -7,7 +7,7 @@ require_once "./app/models/Role.php";
 <ul class="header nav nav-tabs">
     <li class="nav-item">
         <a class="header__logo nav-link active" href="#">
-            <img src="./resources/images/main/logo/logoHuyExam-nobg.png" alt="">
+            <img src="./resources/images/main/logo/logoHuyExam-nobg-white.png" alt="">
         </a>
     </li>
     <?php

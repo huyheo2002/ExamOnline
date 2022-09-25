@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Lobster&family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
+
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
+}
+
+#main {
+    font-family: 'Lobster', cursive;
+    font-family: 'Roboto Flex', sans-serif;
+    font-family: 'Didact Gothic', sans-serif;
 }
 
 /* head */
@@ -12,12 +23,13 @@
     left: 0;
     right: 0;
     z-index: 10;
-    background-color: #fff;
+    /* background-color: #fff; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
     padding: 0 10%;
+    border: unset;
 }
 
 li.nav-item {
@@ -26,6 +38,7 @@ li.nav-item {
 
 a.header__logo.nav-link.active {
     padding: 0;
+    background-color: unset;
 }
 
 .header__logo {
@@ -48,125 +61,79 @@ a.header__logo.nav-link.active {
     height: 100%;
 }
 
-/* body */
-.body {
-    margin-top: 68px;
-}
-
-h3.sidebar__title.admin{
-    display: none;
-}
-
-.body__sidebar_list.admin{
-    display: none;
-}
-
-.content__wrap{
+/* content */
+.body__content-bg{
     width: 100%;
-    border: none;
+    height: 100vh;
+    background-color: #fff;
+    position: relative;
+    background: url('../images/main/home/bg.png') center/cover no-repeat;
+    overflow: hidden;
 }
 
-h1.exam__title {
+.body__content {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.body__content-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 42px;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+}
+
+.body__content-slogan {
+    color: #fff;
+    text-align: center;
     font-size: 28px;
     font-weight: 500;
-    letter-spacing: 2px;
+    margin-top: 25px;
 }
 
-/* sidebar */
-.body__sidebar{
-    width: 20%;
-    background: #fff;
-    padding: 15px 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    top: 68px;
-    z-index: 5;
-    border-right: 3px solid #ccc;
-}
-
-.body__sidebar_logo{
-    height: auto;
-    width: 100%;
-    /* margin: 15px 0; */
-    text-align: center;
-}
-
-.body__sidebar_logo img {
-    width: 100%;
-    height: 100%;
-}
-
-.body__sidebar_logo i{
-    font-size: 60px;
-}
-
-.body__sidebar_list{
-    list-style-type: none;
-    margin-bottom: 5px;
-}
-
-.body__sidebar_list li{
-    cursor: pointer;
-}
-
-.body__sidebar_list li:hover a{
-    background-color: rgb(100, 199, 233);
-    color: #fff;
-}
-
-.body__sidebar_list a{
-    text-decoration: none;
-    display: flex;
-    padding: 10px 0;
-    padding-left: 15px;
-    transition: all linear 0.25s;
-    color: #000;
-}
-
-.body__sidebar_list a i{
-    font-size: 22px;
-}
-
-.body__sidebar_list a p{
-    height: 22px;
-    line-height: 22px;
-    margin-left: 15px;
-}
-
-/* content */
-.body__content{
-    width: 80%;
-    margin-left: 20%;
-    background-color: #fff;
-    height: 1000px;
-    font-size: larger;
-    font-weight: bold;
+.body__content-bottom {
+    margin-top: 50px;
     position: relative;
 }
 
-.content__header{
-    background-color: #fff;
-    padding: 0 10px;
-    height: 60px;
-    line-height: 60px;
-    display: flex;
-    justify-content: flex-end;
-    position: fixed;
+.body__content-bottom img {
+    width: 1000px;    
+    height: 200px;
+}
+
+.body__content-desc {
+    position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    border-bottom: 1px solid #ccc;
-    user-select: none;
-    z-index: 10;
+    left: 20%;
+    color: #fff;
+    font-weight: 200;
+    font-size: 22px;
+    letter-spacing: 1px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
-.content__main{
-    margin-top: 60px;
-    padding: 15px;
-    display: none;
+.content-desc-wrap {
+    display: flex;
 }
 
+.iconwrap{
+    width: 25px;
+    height: 25px;
+    margin-right: 20px;
+}
+
+.content-desc-wrap i {
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    margin-right: 10px;
+}
 /* question */
 .exam__question-wrap {
     margin-top: 20px;
@@ -352,4 +319,5 @@ p {
 
 .nav-tabs .nav-link {
     border: unset;
+    color: #fff;
 }
