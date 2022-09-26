@@ -31,7 +31,7 @@ $user = Auth::user();
         <div class="profile">
             <div class="card">
                 <div class="card-body">
-                    <img src="<?= $user->getAvatarLink() ?>" alt="" width="100" height="100">
+                    <img src="<?= $user->getAvatarLink() ?>" alt="" width="150" height="150">
 
                     <div class="name">
                         <?= $user->name ?>
