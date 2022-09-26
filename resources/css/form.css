@@ -66,8 +66,11 @@ form {
     text-align: center;
     user-select: none;
     white-space: nowrap;
-    margin-left: 40px;
     text-decoration: none;
+}
+
+.content__listBtn button.content__btnExit {
+    margin: 0 0 0 40px;
 }
 
 .content__btnExit a {
@@ -126,7 +129,6 @@ form {
 .check__wrap {
     display: flex;
     align-items: center;
-    margin-left: 15px;
     margin-bottom: 10px;
 }
 
@@ -141,8 +143,16 @@ label.check__name {
 
 input.check_cb {
     width: auto;
-    transform: scale(1.5);        
+    transform: scale(1.5);
+    margin: 5px 10px;        
     /* transform: translateY(-0.075em); */
+}
+
+textarea.check__name {
+    width: 100%;
+    min-height: 46px;
+    padding: 5px;
+    resize: none;
 }
 
 input.check_cb:hover ~ label.check__name {

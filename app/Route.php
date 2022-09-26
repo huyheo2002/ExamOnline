@@ -62,9 +62,9 @@ class Route
     public static function root()
     {
         // khi sd cho local mà có folder . . . :V
-        // return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
+        return "http://".$_SERVER["HTTP_HOST"]."/HocPHP/HeThongQuanLyThiTrucTuyen/";
         // khi sd virtual host
-        return "http://".$_SERVER["HTTP_HOST"];
+        // return "http://".$_SERVER["HTTP_HOST"];
     }
 
     public static function path($routeName, $data = [])
