@@ -11,6 +11,8 @@ require_once "./app/Route.php";
     include "./resources/view/partitions/head.php";
     ?>
     <link rel="stylesheet" href="./resources/css/student.css">
+    <link rel="stylesheet" href="./resources/css/student-doexam.css">
+
 </head>
 
 <body>
@@ -19,13 +21,8 @@ require_once "./app/Route.php";
         <?php
         include "./resources/view/partitions/header.php";
         ?>
-        <div class="body">
-            <!-- sidebar -->
-            <?php
-            include "./resources/view/partitions/sidebar.php";
-            ?>
-            <!-- content -->
-            <div class="body__content">
+        <!-- content -->
+        <div class="body__content doExam">
                 <div class="content__main show">
                     <div class="content__wrap">
                         <h1 class="exam__title">Tiêu đề bài thi</h1>
@@ -45,17 +42,17 @@ require_once "./app/Route.php";
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer select">Chọn
-                                        <span class="count__answer select">1</span>
+                                        <span class="count__answer select">2</span>
                                     </button>
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer correct">Đúng
-                                        <span class="count__answer correct">1</span>
+                                        <span class="count__answer correct">3</span>
                                     </button>
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer wrong">Sai
-                                        <span class="count__answer wrong">1</span>
+                                        <span class="count__answer wrong">4</span>
                                     </button>
                                 </li>
                             </ul>
@@ -63,7 +60,7 @@ require_once "./app/Route.php";
 
                         <!-- ques 2 -->
                         <div class="exam__question-wrap">
-                            <h3 class="exam_count">Câu 2</h3>
+                            <h3 class="exam_count">Câu 1</h3>
                             <h3 class="exam__question">Helloooooooooooooooo Lorem ipsum dolor, sit amet
                                 consectetur adipisicing elit. Magni quod dolorem error? Soluta rem eaque sit accusantium eligendi voluptatibus odio,
                                 neque beatae iste nihil error fuga assumenda similique dolore blanditiis.consectetur adipisicing elit. Magni quod dolorem error? Soluta rem eaque sit accusantium eligendi voluptatibus odio,
@@ -78,17 +75,17 @@ require_once "./app/Route.php";
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer select">Chọn
-                                        <span class="count__answer select">1</span>
+                                        <span class="count__answer select">2</span>
                                     </button>
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer correct">Đúng
-                                        <span class="count__answer correct">1</span>
+                                        <span class="count__answer correct">3</span>
                                     </button>
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer wrong">Sai
-                                        <span class="count__answer wrong">1</span>
+                                        <span class="count__answer wrong">4</span>
                                     </button>
                                 </li>
                             </ul>
@@ -96,7 +93,7 @@ require_once "./app/Route.php";
 
                         <!-- ques3 -->
                         <div class="exam__question-wrap">
-                            <h3 class="exam_count">Câu 3</h3>
+                            <h3 class="exam_count">Câu 1</h3>
                             <h3 class="exam__question">Helloooooooooooooooo Lorem ipsum dolor, sit amet
                                 consectetur adipisicing elit. Magni quod dolorem error? Soluta rem eaque sit accusantium eligendi voluptatibus odio,
                                 neque beatae iste nihil error fuga assumenda similique dolore blanditiis.consectetur adipisicing elit. Magni quod dolorem error? Soluta rem eaque sit accusantium eligendi voluptatibus odio,
@@ -111,17 +108,17 @@ require_once "./app/Route.php";
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer select">Chọn
-                                        <span class="count__answer select">1</span>
+                                        <span class="count__answer select">2</span>
                                     </button>
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer correct">Đúng
-                                        <span class="count__answer correct">1</span>
+                                        <span class="count__answer correct">3</span>
                                     </button>
                                 </li>
                                 <li class="exam__answer">
                                     <button class="btn__answer wrong">Sai
-                                        <span class="count__answer wrong">1</span>
+                                        <span class="count__answer wrong">4</span>
                                     </button>
                                 </li>
                             </ul>
@@ -135,7 +132,6 @@ require_once "./app/Route.php";
 
                 </div>
             </div>
-        </div>
     </div>
 </body>
 
