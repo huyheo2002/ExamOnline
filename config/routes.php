@@ -23,5 +23,7 @@ Route::resource("role", "controllers/admin/RoleController");
 // Quản lý đề thi
 Route::resource("category", "controllers/admin/CategoryController");
 Route::resource("question", "controllers/admin/QuestionController");
+Route::resource("exam", "controllers/admin/ExamController");
+Route::set("getQuestionsFromCategory", ["controllers/admin/ExamController", "getQuestionsFromCategory"]);
 
 

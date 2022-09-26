@@ -1,5 +1,7 @@
 <?php
 require_once "./app/controllers/ResourceController.php";
+require_once "./app/models/Exam.php";
+require_once "./app/models/Category.php";
 require_once "./app/DB.php";
 require_once "./app/Route.php";
 
@@ -7,130 +9,105 @@ class ExamController extends ResourceController
 {
     public function index()
     {
-        Gate::authorize('viewAny-role');
+        Gate::authorize('viewAny-exam');
 
-        $sql = "SELECT * FROM `roles`";
-        $roles = DB::execute($sql);
-
-        $sql = "SELECT permissions.* FROM roles_permissions, permissions WHERE (roles_permissions.permission_id = permissions.id and roles_permissions.role_id = :id)";
-        for ($i = 0; $i < count($roles); $i++) {
-            $roles[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $roles[$i]["id"]]));  
-        }
+        $exams = Exam::all();
         
-        include ("./resources/view/admin/role/index.php");        
+        return include ("./resources/view/admin/exam/index.php");        
     }
 
     public function create()
     {
-        Gate::authorize('create-role');
+        Gate::authorize('create-exam');
 
-        $sql = "SELECT * FROM `permission_groups`";
-        $permissionGroups = DB::execute($sql);
+        $categories = Category::all();
 
-        $sql = "SELECT * FROM `permissions` WHERE `permission_group_id` = :id";
-        for ($i = 0; $i < count($permissionGroups); $i++) {
-            $permissionGroups[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $permissionGroups[$i]["id"]]));          
-        }
-
-        include ("./resources/view/admin/role/create.php");
+        include ("./resources/view/admin/exam/create.php");
     }
 
     public function store($formData)
     {
-        Gate::authorize('create-role');
+        Gate::authorize('create-exam');
 
-        $sql = "INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES (null, :name, null, null)";
-        DB::execute($sql, 
-        [
-            "name" => $formData["name"]
+        $creatorId = (Auth::check()) ? Auth::user()->id : -1;
+        $exam = Exam::create([
+            "name" => $formData["name"],
+            "category_id" => $formData["category_id"],
+            "created_by" => $creatorId,
         ]);
-        $sql = "SELECT LAST_INSERT_ID() FROM `roles`"; 
-        $lastInsertId = DB::execute($sql)[0]["LAST_INSERT_ID()"];
-        $sql = "INSERT INTO `roles_permissions` (`permission_id`, `role_id`, `created_at`, `updated_at`) VALUES (:permission_id, :role_id, null, null)";
-
-        foreach($formData["permission_ids"] as $permission_id) {
-            DB::execute($sql, [
-                "permission_id" => $permission_id,
-                "role_id" => $lastInsertId
-            ]);
+        if ($exam !== null) {
+            $exam->sync("exams_questions", "exam_id", "question_id", $formData["question_ids"]);
         }
 
-        Route::redirect(Route::path("role.index"));       
+        return Route::redirect(Route::path("exam.index"));       
     }
 
     public function show($id)
     {
-        Gate::authorize('view-role');
+        Gate::authorize('view-exam');
 
-        $sql = "SELECT * FROM `roles` WHERE (`id` = :id)";
-        $role = DB::execute($sql, ["id" => $id])[0];
-
-        $sql = "SELECT permissions.id FROM roles_permissions, permissions WHERE (roles_permissions.permission_id = permissions.id and roles_permissions.role_id = :id)";
-        $role["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $role["id"]])); 
-        
-        $sql = "SELECT * FROM `permission_groups`";
-        $permissionGroups = DB::execute($sql);
-
-        $sql = "SELECT * FROM `permissions` WHERE `permission_group_id` = :id";
-        for ($i = 0; $i < count($permissionGroups); $i++) {
-            $permissionGroups[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $permissionGroups[$i]["id"]]));          
+        if (!$exam = Exam::find($id)) {
+            return Route::error(404);
         }
+        $categories = Category::all();
         
-        include ("./resources/view/admin/role/show.php");
+        return include ("./resources/view/admin/exam/show.php");
     }
 
     public function edit($id)
     {
-        Gate::authorize('update-role');
+        Gate::authorize('update-exam');
 
-        $sql = "SELECT * FROM `roles` WHERE (`id` = :id)";
-        $role = DB::execute($sql, ["id" => $id])[0];
-
-        $sql = "SELECT permissions.id FROM roles_permissions, permissions WHERE (roles_permissions.permission_id = permissions.id and roles_permissions.role_id = :id)";
-        $role["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $role["id"]])); 
-        
-        $sql = "SELECT * FROM `permission_groups`";
-        $permissionGroups = DB::execute($sql);
-
-        $sql = "SELECT * FROM `permissions` WHERE `permission_group_id` = :id";
-        for ($i = 0; $i < count($permissionGroups); $i++) {
-            $permissionGroups[$i]["permissions"] = array_merge(array(), DB::execute($sql, ["id" => $permissionGroups[$i]["id"]]));          
+        if (!$exam = Exam::find($id)) {
+            return Route::error(404);
         }
+        $categories = Category::all();
 
-        include ("./resources/view/admin/role/edit.php");
+        return include ("./resources/view/admin/exam/edit.php");
     }
 
     public function update($id, $formData)
     {
-        Gate::authorize('update-role');
+        Gate::authorize('update-exam');
 
-        $sql = "UPDATE `roles` SET `name` = :name WHERE (`id` = :id)";
-        DB::execute($sql, ["id" => $id, "name" => $formData["name"]]);
+        if (!$exam = Exam::find($id)) {
+            return Route::error(404);
+        }
 
-        $sql = "DELETE FROM `roles_permissions` WHERE (`role_id` = :id)";
-        DB::execute($sql, ["id" => $id]);
-
-        $sql = "INSERT INTO `roles_permissions` (`permission_id`, `role_id`, `created_at`, `updated_at`) VALUES (:permission_id, :role_id, null, null)";
-        foreach($formData["permission_ids"] as $permission_id) {
-            DB::execute($sql, [
-                "permission_id" => $permission_id,
-                "role_id" => $id
-            ]);
+        $creatorId = $exam->id ?? -1;
+        $exam = Exam::update([
+            "name" => $formData["name"],
+            "category_id" => $formData["category_id"],
+            "created_by" => $creatorId,
+        ], $id);
+        if ($exam !== null) {
+            $exam->sync("exams_questions", "exam_id", "question_id", $formData["question_ids"]);
         }
         
-        Route::redirect(Route::path("role.index"));  
+        return Route::redirect(Route::path("exam.index"));  
     }
 
     public function delete($id)
     {
-        Gate::authorize('delete-role');
+        Gate::authorize('delete-exam');
 
-        $sql = "DELETE FROM `roles_permissions` WHERE (`role_id` = :id)";
-        DB::execute($sql, ["id" => $id]);
-        
-        $sql = "DELETE FROM `roles` WHERE (`id` = :id)";
-        DB::execute($sql, ["id" => $id]);
-        Route::redirect(Route::path("role.index"));  
+        if (!$exam = Exam::find($id)) {
+            return Route::error(404);
+        }
+        $exam->sync("exams_questions", "exam_id", "question_id", []);
+        Exam::destroy($id);
+
+        return Route::redirect(Route::path("exam.index"));  
     }
 
+    public function getQuestionsFromCategory() 
+    {
+        $id = $_POST["category_id"] ?? -1;
+        $category = Category::find($id);
+        if ($category !== null) {
+            $questions = $category->questions();
+        }
+
+        echo json_encode($questions ?? []);
+    }
 }

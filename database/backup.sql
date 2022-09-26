@@ -109,6 +109,8 @@ CREATE TABLE `exams` (
 CREATE TABLE `exams_questions` (
   `exam_id` int(10) UNSIGNED,
   `question_id` int(10) UNSIGNED,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`question_id`) REFERENCES `questions`(`id`),
   FOREIGN KEY (`exam_id`) REFERENCES `exams`(`id`)
 );

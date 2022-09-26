@@ -35,7 +35,7 @@ class QuestionController extends ResourceController
             dd("Không được bro");
             return;
         }
-        if (empty($formData["answers"]["correct"])) {
+        if ($formData["answers"]["correct"] == null) {
             dd("Không có đáp án à bro");
             return;
         }

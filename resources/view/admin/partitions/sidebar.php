@@ -46,7 +46,7 @@
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý câu hỏi</p>
         </a></li>
-        <li><a href="<?= Route::path('user.index') ?>">
+        <li><a href="<?= Route::path('exam.index') ?>">
             <i class="fa-solid fa-bars"></i>
             <p class="body__sidebar_text">Quản lý đề thi</p>
         </a></li>
