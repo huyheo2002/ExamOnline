@@ -8,8 +8,6 @@
 }
 
 html {
-    height: 100vh;
-    overflow: hidden;
 }
 
 body {
@@ -25,6 +23,55 @@ body {
     box-shadow: 0px 4px 8px 0px grey;
     height: 70px;
 } */
+/* head */
+.header {
+    height: 68px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: #04306E!important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 1px solid #ccc; */
+    padding: 0 10%;
+    border: unset;
+}
+
+li.nav-item {
+    height: 100%;
+}
+
+a.header__logo.nav-link {
+    padding: 0;
+    background-color: unset;
+    border: unset;
+}
+.nav-link:hover {
+    border: unset;
+}
+
+.header__logo {
+    width: fit-content;
+    height: 100%;
+}
+
+.header__logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.header__avtUser {
+    width: auto;
+    height: 100%;
+}
+
+.header__avtUser img {
+    max-width: 100%;
+    height: 100%;
+}
 
 .title {
     font-family: 'Dancing Script', cursive;
@@ -62,26 +109,23 @@ body {
 /* End */
 
 /* Sidenav */
-.sidenav {
-    background-color: #fff;
-    color: #333;
-    border-bottom-right-radius: 25px;
-    height: 100%;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    overflow-x: hidden;
-    padding-top: 20px;
-    position: absolute;
-    width: 250px;
-    z-index: 10000;
-    margin-top: 70px;
-}
 
 .profile {
     margin-bottom: 20px;
-    margin-top: -12px;
+    /* margin-top: -12px; */
     text-align: center;
+    width: 25%;
+}
+.profile .card {
+    min-height: 400px; 
+}
+
+.info .card {
+    min-height: 400px; 
+}
+
+.info {
+    width: 65%;
 }
 
 .profile img {
@@ -132,10 +176,11 @@ body {
 /* Main */
 .main-content {
     margin-top: 100px;
-    margin-left: 270px;
     font-size: 28px;
-    padding: 0 10px;
-    max-width: 60%;
+    /* padding: 0 10px; */
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 .main-content h2 {
@@ -151,7 +196,7 @@ body {
     box-shadow: 1px 1px 8px 0 grey;
     height: auto;
     margin-bottom: 20px;
-    padding: 20px 0 20px 50px;
+    padding: 20px 50px 20px 50px;
 }
 
 .main-content .card table {
@@ -169,7 +214,7 @@ body {
 
 .social-media {
     text-align: center;
-    width: 90%;
+    /* width: 90%; */
 }
 
 .social-media span {
