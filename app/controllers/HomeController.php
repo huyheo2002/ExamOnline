@@ -11,4 +11,9 @@ class HomeController
     {
         return include("./resources/view/web/profile.php");
     }
+
+    public function doExam() 
+    {
+        return include("./resources/view/web/doExam.php");
+    }
 }

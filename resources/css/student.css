@@ -177,6 +177,8 @@ button.btn__answer {
     box-shadow: 0 2px 0 #ccc;
     transition: all linear 0.3s;
     cursor: pointer;
+    text-align: justify;
+    letter-spacing: 1px;
 
 }
 
@@ -216,6 +218,10 @@ button.btn__answer.select {
     border-radius: 8px;
     color: #4b4b4b;
     transition: all linear 0.3s;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    margin: auto;
 }
 
 .count__answer.correct {
