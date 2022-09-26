@@ -6,7 +6,7 @@ require_once "./app/models/Role.php";
 
 <ul class="header nav nav-tabs">
     <li class="nav-item">
-        <a class="header__logo nav-link active" href="#">
+        <a class="header__logo nav-link" href="<?= Route::root() ?>">
             <img src="./resources/images/main/logo/logoHuyExam-nobg-white.png" alt="">
         </a>
     </li>
