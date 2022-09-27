@@ -29,7 +29,7 @@ class ExamController extends ResourceController
     {
         Gate::authorize('create-exam');
 
-        $creatorId = (Auth::check()) ? Auth::user()->id : -1;
+        $creatorId = (Auth::check()) ? Auth::user()->id : 0;
         $exam = Exam::create([
             "name" => $formData["name"],
             "category_id" => $formData["category_id"],
@@ -74,7 +74,7 @@ class ExamController extends ResourceController
             return Route::error(404);
         }
 
-        $creatorId = $exam->id ?? -1;
+        $creatorId = $exam->id ?? 0;
         $exam = Exam::update([
             "name" => $formData["name"],
             "category_id" => $formData["category_id"],
@@ -98,16 +98,5 @@ class ExamController extends ResourceController
         Exam::destroy($id);
 
         return Route::redirect(Route::path("exam.index"));  
-    }
-
-    public function getQuestionsFromCategory() 
-    {
-        $id = $_POST["category_id"] ?? -1;
-        $category = Category::find($id);
-        if ($category !== null) {
-            $questions = $category->questions();
-        }
-
-        echo json_encode($questions ?? []);
     }
 }

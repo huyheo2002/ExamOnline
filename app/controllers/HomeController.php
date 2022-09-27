@@ -3,6 +3,8 @@
 require_once "./app/Route.php";
 require_once "./app/models/User.php";
 require_once "./app/models/Role.php";
+require_once "./app/models/Category.php";
+require_once "./app/models/Exam.php";
 
 class HomeController 
 {
@@ -68,8 +70,48 @@ class HomeController
         return Route::redirect(Route::path("profile.show"));
     }
 
-    public function doExam() 
+    public function indexTest() 
     {
-        return include("./resources/view/web/doExam.php");
+        $categories = Category::all();
+
+        return include("./resources/view/web/test/index.php");
+    }
+
+    public function takeTest() 
+    {
+        $examId = $_GET["id"];
+        if ($examId == null) {
+            return Route::redirect(Route::path("test.index"));
+        }
+
+        $exam = Exam::find($examId);
+        if ($exam == null) {
+            return Route::redirect(Route::path("test.index"));
+        }
+
+        $questions = array_merge(array(), $exam->questions());
+        shuffle($questions);
+
+        return include("./resources/view/web/test/take.php");
+    }
+
+    public function evalTest() 
+    {
+        $examId = $_POST["exam_id"];
+        if ($examId == null) {
+            return Route::redirect(Route::path("test.index"));
+        }
+        $exam = Exam::find($examId);
+        if ($exam == null) {
+            return Route::redirect(Route::path("test.index"));
+        }
+        $answers = $_POST["answers"];
+        if ($answers == null) {
+            return Route::redirect(Route::path("test.index"));
+        }
+        // Chờ chấm
+        dd($answers);
+
+        return include("./resources/view/web/test/result.php");
     }
 }
