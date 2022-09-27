@@ -11,7 +11,9 @@ Route::set("doRegister", ["controllers/auth/RegisterController", "register"]);
 Route::set("login", ["controllers/auth/LoginController", "showLoginForm"]);
 Route::set("doLogin", ["controllers/auth/LoginController", "login"]);
 Route::set("logout", ["controllers/auth/LoginController", "logout"]);
-Route::set("profile", ["controllers/HomeController", "showProfile"]);
+Route::set("profile.show", ["controllers/HomeController", "showProfile"]);
+Route::set("profile.edit", ["controllers/HomeController", "editProfile"]);
+Route::set("profile.update", ["controllers/HomeController", "updateProfile"]);
 Route::set("doExam", ["controllers/HomeController", "doExam"]);
 
 // Admin only
