@@ -29,7 +29,11 @@ class LoginController
 
     public function showLoginForm() 
     {
-        include ("./resources/view/auth/frmLogin.html");
+        if (Auth::check()) {
+            return Route::redirect($this->redirectPath());
+        }
+        
+        return include ("./resources/view/auth/frmLogin.html");
     }
 
     public function login()

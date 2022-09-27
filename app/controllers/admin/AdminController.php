@@ -7,6 +7,6 @@ class AdminController
 {
     public function index()
     {
-        return Route::redirect(Route::path('permission-group.index'));
+        return include("./resources/view/admin/dashboard.php");
     }
 }

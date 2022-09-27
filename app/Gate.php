@@ -17,6 +17,14 @@ class Gate
         }
     }
 
+    static public function can(string $key)
+    {
+        return (
+            isset(self::$definedGates[$key]) &&
+            (self::$definedGates[$key]() == true)
+        );
+    }
+
     static public function set(string $key, $callback)
     {
         self::$definedGates[$key] = $callback;

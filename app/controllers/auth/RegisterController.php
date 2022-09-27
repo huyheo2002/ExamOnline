@@ -8,7 +8,11 @@ class RegisterController
 {
     public function showRegisterForm() 
     {
-        include ("./resources/view/auth/frmRegister.html");
+        if (Auth::check()) {
+            return Route::redirect(Route::root());
+        }
+        
+        return include ("./resources/view/auth/frmRegister.html");
     }
 
     public function register()
