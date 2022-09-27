@@ -6,15 +6,11 @@ class Route
     
     static public function handle(string $uri)
     {                
-        foreach(self::$definedRoutes as $key => $func) {
-            if (!strcmp($uri, $key)) {
-                $func(); 
-                return true;               
-            }            
+        if (isset(self::$definedRoutes[$uri])) {
+            self::$definedRoutes[$uri]();
+        } else {
+            self::error(404);
         }
-        
-        echo "Undefined route";
-        return false;
     }
 
     /**

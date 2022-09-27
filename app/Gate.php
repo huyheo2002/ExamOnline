@@ -8,12 +8,8 @@ class Gate
     
     static public function authorize(string $key)
     {                
-        foreach(self::$definedGates as $k => $func) {
-            if (!strcmp($k, $key)) {
-                if (! $func()) {
-                    return Route::error(403);
-                }         
-            }
+        if (self::can($key) == false) {
+            Route::error(403);
         }
     }
 
