@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
+
+#main {
+    font-family: 'Roboto Flex', sans-serif;
+}
+
 .header {
     background-color: rgb(100, 199, 233);
     color: #fff;
@@ -203,4 +209,19 @@ img.point-3 {
     z-index: 20;
     font-size: 18px;
     font-weight: 600;
+}
+
+/* category */
+.container-fluid {
+    padding-top: 15px;
+}
+
+.category_title {
+    font-size: 22px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+select#category_id {
+    padding: 5px 10px;
 }

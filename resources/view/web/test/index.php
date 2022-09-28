@@ -26,7 +26,7 @@ require_once "./app/Route.php";
         <div class="body__content doExam">
             <div class="content__main show">
                 <div class="container-fluid">
-                    <label for="category_id">
+                    <label for="category_id" class="category_title">
                         Chọn chủ đề
                     </label> 
                     <select name="category_id" id="category_id">
