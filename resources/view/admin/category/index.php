@@ -56,10 +56,27 @@ require_once "./app/Route.php";
                                         </select>
                                     </td>
                                     <td class="list__action">
-                                        <!-- test -->
-                                        <a href="<?= Route::path('category.show', ['id' => $category->id]) ?>">Hiển thị</a>
-                                        <a href="<?= Route::path('category.edit', ['id' => $category->id]) ?>">Chỉnh sửa</a>
-                                        <a href="<?= Route::path('category.delete', ['id' => $category->id]) ?>">Xóa</a>
+                                        <?php
+                                        if (Gate::can("view-category")) {
+                                        ?>
+                                            <a href="<?= Route::path('category.show', ['id' => $category->id]) ?>">Hiển thị</a>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if (Gate::can("update-category")) {
+                                        ?>
+                                            <a href="<?= Route::path('category.edit', ['id' => $category->id]) ?>">Chỉnh sửa</a>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if (Gate::can("delete-category")) {
+                                        ?>
+                                            <a href="<?= Route::path('category.delete', ['id' => $category->id]) ?>">Xóa</a>
+                                        <?php
+                                        }
+                                        ?>
                                     </td>
                                 </tr>
                         <?php
@@ -68,7 +85,13 @@ require_once "./app/Route.php";
                         ?>
                     </table>
                     <div class="content__listBtn">
-                        <a href="<?= Route::path('category.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <?php
+                        if (Gate::can("create-category")) {
+                        ?>
+                            <a href="<?= Route::path('category.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <?php
+                        }
+                        ?>
                         <button class="content__btnExit">
                             <a href="<?= Route::path('login') ?>">Thoát</a>
                         </button>

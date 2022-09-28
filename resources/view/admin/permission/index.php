@@ -45,10 +45,27 @@ require_once "./app/Route.php";
                                     <td><?= $permission->permissionGroup()->name ?></td>
 
                                     <td class="list__action">
-                                        <!-- test -->
-                                        <a href="<?= Route::path('permission.show', ['id' => $permission->id]) ?>">Hiển thị</a>
-                                        <a href="<?= Route::path('permission.edit', ['id' => $permission->id]) ?>">Chỉnh sửa</a>
-                                        <a href="<?= Route::path('permission.delete', ['id' => $permission->id]) ?>">Xóa</a>
+                                        <?php
+                                        if (Gate::can("view-permission")) {
+                                        ?>
+                                            <a href="<?= Route::path('permission.show', ['id' => $permission->id]) ?>">Hiển thị</a>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if (Gate::can("update-permission")) {
+                                        ?>
+                                            <a href="<?= Route::path('permission.edit', ['id' => $permission->id]) ?>">Chỉnh sửa</a>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if (Gate::can("delete-permission")) {
+                                        ?>
+                                            <a href="<?= Route::path('permission.delete', ['id' => $permission->id]) ?>">Xóa</a>
+                                        <?php
+                                        }
+                                        ?>
                                     </td>
                                 </tr>
                         <?php
@@ -57,7 +74,13 @@ require_once "./app/Route.php";
                         ?>
                     </table>
                     <div class="content__listBtn">
-                        <a href="<?= Route::path('permission.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <?php
+                        if (Gate::can("create-permission")) {
+                        ?>
+                            <a href="<?= Route::path('permission.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <?php
+                        }
+                        ?>
                         <button class="content__btnExit">
                             <a href="<?= Route::path('login') ?>">Thoát</a>
                         </button>

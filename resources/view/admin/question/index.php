@@ -5,23 +5,25 @@ require_once "./app/Route.php";
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <?php 
-        include "./resources/view/admin/partitions/head.php";
+    <?php
+    include "./resources/view/admin/partitions/head.php";
     ?>
     <link rel="stylesheet" href="./resources/css/index.css">
 </head>
+
 <body>
     <div id="main">
         <!-- <div class="header">This is Header :v</div> -->
         <div class="body">
             <?php
-                include "./resources/view/admin/partitions/sidebar.php";
+            include "./resources/view/admin/partitions/sidebar.php";
             ?>
             <div class="body__content">
                 <?php
-                    include "./resources/view/admin/partitions/header.php";
-                    ?>
+                include "./resources/view/admin/partitions/header.php";
+                ?>
                 <div class="content__main show">
                     <h2 class="content__title">Danh sách câu hỏi</h2>
                     <table>
@@ -32,33 +34,56 @@ require_once "./app/Route.php";
                             <th style="width: 5%">Tạo bởi</th>
                             <th style="width: 40%">Hoạt động</th>
                         </tr>
-                    <?php
-                        if(!empty($questions)) {
-                            foreach ($questions as $question) {                   
-                    ?>
-                        <tr>
-                            <td><?= $question->id ?></td>
-                            <td><?= $question->content ?></td>
-                            <td><?= $question->category()->name ?? "Không có danh mục" ?></td>
-                            <td><?= $question->creator()->name ?? "Ẩn danh" ?></td>
-                            
-                            <td class="list__action">
-                                <!-- test -->
-                                <a href="<?= Route::path('question.show', ['id' => $question->id]) ?>">Hiển thị</a>
-                                <a href="<?= Route::path('question.edit', ['id' => $question->id]) ?>">Chỉnh sửa</a>
-                                <a href="<?= Route::path('question.delete', ['id' => $question->id]) ?>">Xóa</a>
-                            </td>
-                        </tr>                        
-                    <?php
+                        <?php
+                        if (!empty($questions)) {
+                            foreach ($questions as $question) {
+                        ?>
+                                <tr>
+                                    <td><?= $question->id ?></td>
+                                    <td><?= $question->content ?></td>
+                                    <td><?= $question->category()->name ?? "Không có danh mục" ?></td>
+                                    <td><?= $question->creator()->name ?? "Ẩn danh" ?></td>
+
+                                    <td class="list__action">
+                                        <?php
+                                        if (Gate::can("view-question")) {
+                                        ?>
+                                            <a href="<?= Route::path('question.show', ['id' => $question->id]) ?>">Hiển thị</a>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if (Gate::can("update-question")) {
+                                        ?>
+                                            <a href="<?= Route::path('question.edit', ['id' => $question->id]) ?>">Chỉnh sửa</a>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if (Gate::can("delete-question")) {
+                                        ?>
+                                            <a href="<?= Route::path('question.delete', ['id' => $question->id]) ?>">Xóa</a>
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                        <?php
                             }
                         }
-                    ?>
+                        ?>
                     </table>
                     <div class="content__listBtn">
-                        <a href="<?= Route::path('question.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <?php
+                        if (Gate::can("create-question")) {
+                        ?>
+                            <a href="<?= Route::path('question.create') ?>" class="content__btnAdd">Thêm mới</a>
+                        <?php
+                        }
+                        ?>
                         <button class="content__btnExit">
-                            <a href="<?= Route::path('login') ?>">Thoát</a>    
-                        </button>                    
+                            <a href="<?= Route::path('login') ?>">Thoát</a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -66,4 +91,5 @@ require_once "./app/Route.php";
         <!-- <div class="footer">This is footer :vvv</div> -->
     </div>
 </body>
+
 </html>
