@@ -32,6 +32,11 @@ class User extends BaseModel
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'users_categories', 'user_id', 'category_id');
+    }
+
     public function exams()
     {
         return $this->belongsToMany(Exam::class, 'users_exams', 'user_id', 'exam_id');

@@ -20,7 +20,8 @@ class ExamController extends ResourceController
     {
         Gate::authorize('create-exam');
 
-        $categories = Category::all();
+        $currentUser = Auth::user();
+        $categories = $currentUser->categories();
 
         include ("./resources/view/admin/exam/create.php");
     }
@@ -53,7 +54,7 @@ class ExamController extends ResourceController
         if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $exam->creator()->id == $currentUser->id)) {
             Route::error(403);
         }
-        $categories = Category::all();
+        $categories = $currentUser->categories();
         
         return include ("./resources/view/admin/exam/show.php");
     }
@@ -69,7 +70,7 @@ class ExamController extends ResourceController
         if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $exam->creator()->id == $currentUser->id)) {
             Route::error(403);
         }
-        $categories = Category::all();
+        $categories = $currentUser->categories();
 
         return include ("./resources/view/admin/exam/edit.php");
     }

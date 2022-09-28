@@ -22,7 +22,8 @@ class QuestionController extends ResourceController
     {
         Gate::authorize('create-question');
 
-        $categories = Category::all();
+        $currentUser = Auth::user();
+        $categories = $currentUser->categories();
         
         return include ("./resources/view/admin/question/create.php");
     }
@@ -70,7 +71,7 @@ class QuestionController extends ResourceController
         if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $question->creator()->id == $currentUser->id)) {
             Route::error(403);
         }
-        $categories = Category::all();
+        $categories = $currentUser->categories();
         
         return include ("./resources/view/admin/question/show.php");
     }
@@ -86,7 +87,7 @@ class QuestionController extends ResourceController
         if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $question->creator()->id == $currentUser->id)) {
             Route::error(403);
         }
-        $categories = Category::all();
+        $categories = $currentUser->categories();
         
         return include ("./resources/view/admin/question/edit.php");
     }
