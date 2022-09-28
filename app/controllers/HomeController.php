@@ -1,6 +1,7 @@
 <?php
 
 require_once "./app/Route.php";
+require_once "./app/Auth.php";
 require_once "./app/models/User.php";
 require_once "./app/models/Role.php";
 require_once "./app/models/Category.php";
@@ -83,11 +84,13 @@ class HomeController
 
     public function takeTest() 
     {
+        if (!Auth::check()) {
+            return Route::redirect(Route::path("test.index"));
+        }
         $examId = $_GET["id"];
         if ($examId == null) {
             return Route::redirect(Route::path("test.index"));
         }
-
         $exam = Exam::find($examId);
         if ($exam == null) {
             return Route::redirect(Route::path("test.index"));
@@ -133,6 +136,12 @@ class HomeController
 
     public function historyTest()
     {
+        if (!Auth::check()) {
+            return Route::redirect(Route::path("test.index"));
+        }
+
+        $historyExams = $this->retrieveTestResult(Auth::user()->id);
+
         return include("./resources/view/web/test/history.php");
     }
 
@@ -163,5 +172,31 @@ class HomeController
         }
         
         return true;
+    }
+
+    private function retrieveTestResult($userId)
+    {
+        $sql = "SELECT `exams`.`id`, `exams`.`name`, `exams`.`category_id`, `users_exams`.`result`, `users_exams`.`user_id`, `users_exams`.`created_at` FROM `exams`, `users_exams` WHERE (`users_exams`.`exam_id` = `exams`.`id` AND `users_exams`.`user_id` = :user_id)";
+        
+        $result = DB::execute($sql, [
+            'user_id' => $userId,
+        ]);
+        if (empty($result)) {
+            return [];
+        } 
+        
+        $collection = array_map(function($record) {
+            $obj = new Exam;
+            $obj->id = $record["id"];
+            $obj->name = $record["name"];
+            $obj->category_id = $record["category_id"];
+            $obj->result = $record["result"];
+            $obj->user_id = $record["user_id"];
+            $obj->created_at = $record["created_at"];
+
+            return $obj;
+        }, $result);
+        
+        return $collection;
     }
 }

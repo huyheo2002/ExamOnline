@@ -35,30 +35,26 @@ require_once "./app/Route.php";
                         <th>Điểm thi</th>
                         <th>Ngày thi</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Xã hội</td>
-                        <td>2</td>
-                        <td>12/6/2002</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Xã hội</td>
-                        <td>2</td>
-                        <td>12/6/2002</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Xã hội</td>
-                        <td>2</td>
-                        <td>12/6/2002</td>
-                    </tr>
+                    <?php
+                    if ($historyExams != null && !empty($historyExams)) {
+                        foreach ($historyExams as $historyExam) {
+                    ?>
+                            <tr>
+                                <td><?= $historyExam->name ?></td>
+                                <td><?= $historyExam->category()->name ?? "Không có danh mục" ?></td>
+                                <td><?= $historyExam->result ?></td>
+                                <td><?= $historyExam->created_at ?></td>
+                            </tr>
+                    <?php
+                        }
+                    }
+                    ?>
                 </table>
                 <div class="content__listBtn">
                     <button class="content__btnExit">
-                        <a href="<?= Route::path('login') ?>">Thoát</a>    
-                    </button>                    
-                </div>                
+                        <a href="<?= Route::path('login') ?>">Thoát</a>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

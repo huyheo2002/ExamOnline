@@ -2,6 +2,7 @@
 
 require_once "./app/models/BaseModel.php";
 require_once "./app/models/Role.php";
+require_once "./app/models/Exam.php";
 
 class User extends BaseModel
 {
@@ -29,6 +30,11 @@ class User extends BaseModel
     public function role() 
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'users_exams', 'user_id', 'exam_id');
     }
 
     // Hàm custom 
