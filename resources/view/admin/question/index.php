@@ -1,5 +1,6 @@
 <?php
 require_once "./app/Route.php";
+require_once "./app/Auth.php";
 
 ?>
 
@@ -37,6 +38,8 @@ require_once "./app/Route.php";
                         <?php
                         if (!empty($questions)) {
                             foreach ($questions as $question) {
+                                $currentUser = Auth::user();
+                                if ($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $question->creator()->id == $currentUser->id) {
                         ?>
                                 <tr>
                                     <td><?= $question->id ?></td>
@@ -69,6 +72,7 @@ require_once "./app/Route.php";
                                     </td>
                                 </tr>
                         <?php
+                                }
                             }
                         }
                         ?>

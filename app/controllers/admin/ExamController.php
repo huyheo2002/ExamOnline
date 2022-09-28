@@ -49,6 +49,10 @@ class ExamController extends ResourceController
         if (!$exam = Exam::find($id)) {
             return Route::error(404);
         }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $exam->creator()->id == $currentUser->id)) {
+            Route::error(403);
+        }
         $categories = Category::all();
         
         return include ("./resources/view/admin/exam/show.php");
@@ -61,6 +65,10 @@ class ExamController extends ResourceController
         if (!$exam = Exam::find($id)) {
             return Route::error(404);
         }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $exam->creator()->id == $currentUser->id)) {
+            Route::error(403);
+        }
         $categories = Category::all();
 
         return include ("./resources/view/admin/exam/edit.php");
@@ -72,6 +80,10 @@ class ExamController extends ResourceController
 
         if (!$exam = Exam::find($id)) {
             return Route::error(404);
+        }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $exam->creator()->id == $currentUser->id)) {
+            Route::error(403);
         }
 
         $creatorId = $exam->id ?? 0;
@@ -93,6 +105,10 @@ class ExamController extends ResourceController
 
         if (!$exam = Exam::find($id)) {
             return Route::error(404);
+        }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $exam->creator()->id == $currentUser->id)) {
+            Route::error(403);
         }
         $exam->sync("exams_questions", "exam_id", "question_id", []);
         Exam::destroy($id);

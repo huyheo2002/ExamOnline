@@ -5,6 +5,7 @@ require_once "./app/models/Category.php";
 require_once "./app/models/Answer.php";
 require_once "./app/DB.php";
 require_once "./app/Route.php";
+require_once "./app/Auth.php";
 
 class QuestionController extends ResourceController
 {
@@ -40,7 +41,7 @@ class QuestionController extends ResourceController
             return;
         }
 
-        $creatorId = (Auth::check()) ? Auth::user()->id : -1;
+        $creatorId = (Auth::check()) ? Auth::user()->id : 1;
         $question = Question::create([
             "content" => $formData["content"],
             "category_id" => $formData["category_id"],
@@ -62,9 +63,12 @@ class QuestionController extends ResourceController
     public function show($id)
     {
         Gate::authorize('view-question');
-
         if (!$question = Question::find($id)) {
             Route::error(404);
+        }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $question->creator()->id == $currentUser->id)) {
+            Route::error(403);
         }
         $categories = Category::all();
         
@@ -77,6 +81,10 @@ class QuestionController extends ResourceController
 
         if (!$question = Question::find($id)) {
             return Route::error(404);
+        }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $question->creator()->id == $currentUser->id)) {
+            Route::error(403);
         }
         $categories = Category::all();
         
@@ -91,6 +99,10 @@ class QuestionController extends ResourceController
         if (!$question = Question::find($id)) {
             return Route::error(404);
         }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $question->creator()->id == $currentUser->id)) {
+            Route::error(403);
+        }
         if (empty($formData["content"])) {
             dd("Không được bro");
             return;
@@ -100,7 +112,7 @@ class QuestionController extends ResourceController
             return;
         }
 
-        $creatorId = $question->created_by ?? -1;
+        $creatorId = $question->created_by ?? 1;
         $question = Question::update([
             "content" => $formData["content"],
             "category_id" => $formData["category_id"],
@@ -129,6 +141,10 @@ class QuestionController extends ResourceController
 
         if (!$question = Question::find($id)) {
             return Route::error(404);
+        }
+        $currentUser = Auth::user();
+        if (!($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $question->creator()->id == $currentUser->id)) {
+            Route::error(403);
         }
         $answerIds = array_map(fn($answer) => $answer->id, $question->answers());
         foreach($answerIds as $answerId) {

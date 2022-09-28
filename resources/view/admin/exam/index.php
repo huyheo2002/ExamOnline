@@ -1,5 +1,6 @@
 <?php
 require_once "./app/Route.php";
+require_once "./app/Auth.php";
 
 ?>
 
@@ -37,38 +38,41 @@ require_once "./app/Route.php";
                         <?php
                         if (!empty($exams)) {
                             foreach ($exams as $exam) {
+                                $currentUser = Auth::user();
+                                if ($currentUser->role_id == Role::OF['admin'] || $currentUser->role_id == Role::OF['staff'] || $exam->creator()->id == $currentUser->id) {
                         ?>
-                                <tr>
-                                    <td><?= $exam->id ?></td>
-                                    <td><?= $exam->name ?></td>
-                                    <td><?= $exam->category()->name ?? "Không có danh mục" ?></td>
-                                    <td><?= $exam->creator()->name ?? "Ẩn danh" ?></td>
+                                    <tr>
+                                        <td><?= $exam->id ?></td>
+                                        <td><?= $exam->name ?></td>
+                                        <td><?= $exam->category()->name ?? "Không có danh mục" ?></td>
+                                        <td><?= $exam->creator()->name ?? "Ẩn danh" ?></td>
 
-                                    <td class="list__action">
-                                        <?php
-                                        if (Gate::can("view-exam")) {
-                                        ?>
-                                            <a href="<?= Route::path('exam.show', ['id' => $exam->id]) ?>">Hiển thị</a>
-                                        <?php
-                                        }
-                                        ?>
-                                        <?php
-                                        if (Gate::can("update-exam")) {
-                                        ?>
-                                            <a href="<?= Route::path('exam.edit', ['id' => $exam->id]) ?>">Chỉnh sửa</a>
-                                        <?php
-                                        }
-                                        ?>
-                                        <?php
-                                        if (Gate::can("delete-exam")) {
-                                        ?>
-                                            <a href="<?= Route::path('exam.delete', ['id' => $exam->id]) ?>">Xóa</a>
-                                        <?php
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
+                                        <td class="list__action">
+                                            <?php
+                                            if (Gate::can("view-exam")) {
+                                            ?>
+                                                <a href="<?= Route::path('exam.show', ['id' => $exam->id]) ?>">Hiển thị</a>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php
+                                            if (Gate::can("update-exam")) {
+                                            ?>
+                                                <a href="<?= Route::path('exam.edit', ['id' => $exam->id]) ?>">Chỉnh sửa</a>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php
+                                            if (Gate::can("delete-exam")) {
+                                            ?>
+                                                <a href="<?= Route::path('exam.delete', ['id' => $exam->id]) ?>">Xóa</a>
+                                            <?php
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
                         <?php
+                                }
                             }
                         }
                         ?>
