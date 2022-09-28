@@ -130,7 +130,7 @@ CREATE TABLE `answers` (
 CREATE TABLE `users_exams`  (
   `user_id` int(10) UNSIGNED,
   `exam_id` int(10) UNSIGNED,
-  `result` int(3),
+  `result` double,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
@@ -262,18 +262,109 @@ VALUES
 ('34', '3', current_timestamp(), NULL),
 ('35', '3', current_timestamp(), NULL);
 
-
-
 -- user
 INSERT INTO `users` (`id`, `name`, `email`, `username`, `password`, `phone`, `role_id`, `avatar`) 
 VALUES 
-(NULL, 'huy admin', 'huy12@gmail.com', 'huyadmin', '123', '0123', '1', NULL),
-(NULL, 'huy nhân viên', 'huy12@gmail.com', 'huynhanvien', '123', '0123', '2', NULL),
-(NULL, 'huy giáo viên', 'huy12@gmail.com', 'huygiaovien', '123', '0123', '3', NULL),
-(NULL, 'huy học viên', 'huy12@gmail.com', 'huyhocvien', '123', '0123', '4', NULL);
+(NULL, 'Nguyễn Văn Huy', 'huy.admin@gmail.com', 'huyadmin', '123', '0123456789', '1', NULL),
+(NULL, 'Nhân viên Nguyên', 'nguyen.staff@gmail.com', 'nvnguyen', '123', '0123456987', '2', NULL),
+(NULL, 'Giáo viên Văn', 'van.teacher@gmail.com', 'gvvan', '123', '0123654789', '3', NULL),
+(NULL, 'Giáo viên Ngọc', 'ngoc.teacher@gmail.com', 'gvngoc', '123', '0123654987', '3', NULL),
+(NULL, 'Học viên Long', 'long.student@gmail.com', 'hvlong', '123', '0321456789', '4', NULL),
+(NULL, 'Học viên Vy', 'vy.student@gmail.com', 'hvvy', '123', '0321456987', '4', NULL),
+(NULL, 'Học viên Hải', 'hai.student@gmail.com', 'hvhai', '123', '0321654789', '4', NULL),
+(NULL, 'Học viên Huy', 'huy.student@gmail.com', 'hvhuy', '123', '0321654987', '4', NULL);
 
+-- category
+INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) 
+VALUES
+(NULL, 'Văn hoá & Xã hội', NULL, NULL),
+(NULL, 'Triết học đại cương', NULL, NULL),
+(NULL, '300 bài code thiếu nhi', NULL, NULL),
+(NULL, 'Tư tưởng Hồ Chí Minh', NULL, NULL);
 
+-- users_categories
+INSERT INTO `users_categories` (`user_id`, `category_id`, `created_at`, `updated_at`) 
+VALUES
+('3', '1', NULL, NULL),
+('4', '2', NULL, NULL),
+('3', '3', NULL, NULL),
+('4', '4', NULL, NULL);
 
+-- questions
+INSERT INTO `questions` (`id`, `content`, `category_id`, `created_by`, `created_at`, `updated_at`) 
+VALUES
+(NULL, 'Hai món ăn không thể thiếu của ngày lễ Tạ ơn là gì?', '1', '1', NULL, NULL),
+(NULL, 'Ai là người đặt tên cho con đường Thanh Niên?', '1', '3', NULL, NULL),
+(NULL, 'Phong trào Duy Tân do ai sáng lập?', '1', '1', NULL, NULL),
+(NULL, 'Truyện Kiều có tất cả bao nhiêu câu lục bát', '1', '3', NULL, NULL),
+(NULL, 'Rừng U Minh thuộc tỉnh nào?', '1', '1', NULL, NULL),
+(NULL, 'Lễ hội óc-om-boóc là lễ cúng trăng của đồng bào nào?', '1', '3', NULL, NULL),
+(NULL, 'Nơi nào đựơc mệnh danh là Thiên hạ đệ nhất kỳ quan?', '1', '1', NULL, NULL),
+(NULL, 'Đạo giáo do ai sáng lập?', '1', '3', NULL, NULL),
+(NULL, 'Nội dung', '1', '1', NULL, NULL);
 
+-- answers
+INSERT INTO `answers` (`id`, `content`, `correct`, `question_id`, `created_at`, `updated_at`) 
+VALUES
+(NULL, 'Gà tây và ngô', '1', '1', NULL, NULL),
+(NULL, 'Khoai tây và ngô', '0', '1', NULL, NULL),
+(NULL, 'Súp gà và khoai tây', '0', '1', NULL, NULL),
+(NULL, 'Súp gà và ngô', '0', '1', NULL, NULL),
+(NULL, 'Võ Nguyên Giáp', '0', '2', NULL, NULL),
+(NULL, 'Nguyễn Tấn Dũng', '0', '2', NULL, NULL),
+(NULL, 'Hồ Chí Minh', '1', '2', NULL, NULL),
+(NULL, 'Phạm Văn Đồng', '0', '2', NULL, NULL),
+(NULL, 'Phan Bội Châu', '0', '3', NULL, NULL),
+(NULL, 'Phan Châu Trinh', '1', '3', NULL, NULL),
+(NULL, 'Nguyễn Ái Quốc', '0', '3', NULL, NULL),
+(NULL, 'Phan Chu Trinh', '0', '3', NULL, NULL),
+(NULL, '3254 câu', '1', '4', NULL, NULL),
+(NULL, '3260 câu', '0', '4', NULL, NULL),
+(NULL, '4254 câu', '0', '4', NULL, NULL),
+(NULL, '2254 câu', '0', '4', NULL, NULL),
+(NULL, 'Tiền Giang', '0', '5', NULL, NULL),
+(NULL, 'Hậu Giang', '0', '5', NULL, NULL),
+(NULL, 'Cà Mau', '1', '5', NULL, NULL),
+(NULL, 'Kiên Giang', '0', '5', NULL, NULL),
+(NULL, 'Dân tộc Tày', '0', '6', NULL, NULL),
+(NULL, 'Dân tộc Thái', '0', '6', NULL, NULL),
+(NULL, 'Dân tộc Khơ me', '1', '6', NULL, NULL),
+(NULL, 'Dân tộc Mèo', '0', '6', NULL, NULL),
+(NULL, 'Đèo Ngang', '0', '7', NULL, NULL),
+(NULL, 'Đèo Cả', '0', '7', NULL, NULL),
+(NULL, 'Đèo Hải Vân', '1', '7', NULL, NULL),
+(NULL, 'Hồ Ba Bể', '0', '7', NULL, NULL),
+(NULL, 'Khổng Tử', '0', '8', NULL, NULL),
+(NULL, 'Lão Tử', '1', '8', NULL, NULL),
+(NULL, 'Đạo Tử', '0', '8', NULL, NULL),
+(NULL, 'Hồng Tử', '0', '8', NULL, NULL),
+(NULL, 'Nội dung', '0', '9', NULL, NULL);
 
+-- Exams
+INSERT INTO `exams` (`id`, `name`, `category_id`, `created_by`, `created_at`, `updated_at`) 
+VALUES
+(NULL, 'Trắc nghiệm về Kiến thức Văn hóa Xã hội', '1', '3', NULL, NULL),
+(NULL, 'Trắc nghiệm về Kiến thức Văn hóa Xã hội 2', '1', '3', NULL, NULL),
+(NULL, 'Tên', '1', '1', NULL, NULL);
 
+-- exams_questions
+INSERT INTO `exams_questions` (`exam_id`, `question_id`, `created_at`, `updated_at`) 
+VALUES
+('1', '1', NULL, NULL),
+('1', '5', NULL, NULL),
+('1', '6', NULL, NULL),
+('1', '7', NULL, NULL),
+('2', '2', NULL, NULL),
+('2', '3', NULL, NULL),
+('2', '4', NULL, NULL),
+('2', '8', NULL, NULL),
+('3', '9', NULL, NULL);
+
+-- users_exams
+INSERT INTO `users_exams` (`user_id`, `exam_id`, `result`, `created_at`, `updated_at`) 
+VALUES
+('1', '1', '10', NULL, NULL),
+('2', '1', '5', NULL, NULL),
+('3', '1', '7.5', NULL, NULL),
+('8', '1', '2.5', NULL, NULL),
+('1', '3', '0', NULL, NULL);

@@ -36,7 +36,7 @@ require_once "./app/Route.php";
                             Chúc mừng bạn đã hoàn thành bài thi
                         </h2>
                         <h4 class="modal__content-title">
-                            1/50 Câu hỏi
+                            <?= $correctCount ?>/<?= $questionCount ?> Câu hỏi
                         </h4>
                     </div>
 
@@ -45,7 +45,7 @@ require_once "./app/Route.php";
                         <img src="./resources/images/main/home/point-1.png" alt="" class="point-2">
                         <img src="./resources/images/main/home/show-point.png" alt="" class="point-3">
                         <span class="modal__point-result">
-                            Bạn đã đạt được 2 điểm
+                            Bạn đã đạt được <?= $correctCount/$questionCount * 10 ?> điểm
                         </span>
                     </div>
                 </div>

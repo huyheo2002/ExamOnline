@@ -36,7 +36,7 @@ require_once "./app/Route.php";
                                 <img src="./resources/images/main/home/dashboard-bgoverlay-exam-removebg-preview.png" alt="">
                                 <div class="group__items-textShow-wrap">
                                     <p class="group__items-textShow">Quản lý đề thi</p>
-                                    <p class="group__items-subtextShow">58 đề thi</p>
+                                    <p class="group__items-subtextShow"><?= count($exams ?? []) ?> đề thi</p>
                                 </div>
                                 
                             </a></li>
@@ -47,7 +47,7 @@ require_once "./app/Route.php";
                                 <img src="./resources/images/main/home/dashboard-bgoverlay-question-removebg-preview.png" alt="">
                                 <div class="group__items-textShow-wrap">
                                     <p class="group__items-textShow">Quản lý câu hỏi</p>
-                                    <p class="group__items-subtextShow">101 câu hỏi</p>
+                                    <p class="group__items-subtextShow"><?= count($questions ?? []) ?> câu hỏi</p>
                                 </div>
                             </a></li>                            
                             <li class="group__list-item items__hover group__border"><a href="">
@@ -57,7 +57,7 @@ require_once "./app/Route.php";
                                 <img src="./resources/images/main/home/point-1.png" alt="">
                                 <div class="group__items-textShow-wrap">
                                     <p class="group__items-textShow">Quản lý giáo viên</p>
-                                    <p class="group__items-subtextShow">12 giáo viên</p>
+                                    <p class="group__items-subtextShow"><?= count($teachers ?? []) ?> giáo viên</p>
                                 </div>
                             </a></li>
                             <li class="group__list-item items__hover group__border"><a href="">
@@ -67,7 +67,7 @@ require_once "./app/Route.php";
                                 <img src="./resources/images/main/home/doExam-poster.png" alt="">
                                 <div class="group__items-textShow-wrap">
                                     <p class="group__items-textShow">Quản lý học viên</p>
-                                    <p class="group__items-subtextShow">199 học viên</p>
+                                    <p class="group__items-subtextShow"><?= count($students ?? []) ?> học viên</p>
                                 </div>
                             </a></li>
                             <li class="group__list-item reloadgroup">

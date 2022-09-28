@@ -109,9 +109,50 @@ class HomeController
         if ($answers == null) {
             return Route::redirect(Route::path("test.index"));
         }
-        // Chờ chấm
-        dd($answers);
+        if (!Auth::check()) {
+            return Route::redirect(Route::path("test.index"));
+        }
+        $user = Auth::user();
+
+        $questionIds = array_map(fn($question) => $question->id, $exam->questions());
+        $correctAnswerIds = array_map(fn($answer) => $answer->id, Answer::correctAnswers($examId));
+        $selectedAnswerIds = array_unique($answers);
+
+        $questionCount = count($questionIds);
+        $selectedCount = count($selectedAnswerIds);
+        $correctCount = count(array_intersect($correctAnswerIds, $selectedAnswerIds));
+
+        $this->saveTestResult($exam->id, $user->id, $correctCount/$questionCount*10);
 
         return include("./resources/view/web/test/result.php");
+    }
+
+    private function saveTestResult($examId, $userId, $result)
+    {
+        $sql = "DELETE FROM `users_exams` WHERE (`exam_id` = :exam_id)";
+        try {
+            DB::execute($sql, [
+                "exam_id" => $examId,
+            ]);
+        } catch (Exception $e) {
+            dd($e);
+
+            return false;
+        }
+
+        $sql = "INSERT INTO `users_exams` (`exam_id`, `user_id`, `result`, `created_at`, `updated_at`) VALUES (:exam_id, :user_id, :result, null, null)";
+        try {
+            DB::execute($sql, [
+                'exam_id' => $examId,
+                'user_id' => $userId,
+                'result' => $result,
+            ]);
+        } catch (Exception $e) {
+            dd($e);
+            
+            return false;
+        }
+        
+        return true;
     }
 }
