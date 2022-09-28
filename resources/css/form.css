@@ -159,4 +159,47 @@ input.check_cb:hover ~ label.check__name {
     color: #007bff;
 }
 
+/* head */
+.header {
+    height: 68px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    /* background-color: #fff; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 1px solid #ccc; */
+    padding: 0 10%;
+    border: unset;
+}
 
+li.nav-item {
+    height: 100%;
+}
+a.header__logo.nav-link.active {
+    padding: 0;
+    background-color: unset;
+}
+
+.header__logo {
+    width: fit-content;
+    height: 100%;
+}
+
+.header__logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.header__avtUser {
+    width: auto;
+    height: 100%;
+}
+
+.header__avtUser img {
+    max-width: 100%;
+    height: 100%;
+}
