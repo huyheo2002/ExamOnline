@@ -17,6 +17,7 @@ Route::set("profile.update", ["controllers/HomeController", "updateProfile"]);
 Route::set("test.index", ["controllers/HomeController", "indexTest"]);
 Route::set("test.take", ["controllers/HomeController", "takeTest"]);
 Route::set("test.eval", ["controllers/HomeController", "evalTest"]);
+Route::set("test.history", ["controllers/HomeController", "historyTest"]);
 
 // Admin only
 Route::set("admin", ["controllers/admin/AdminController", "index"]);

@@ -72,6 +72,10 @@ class HomeController
 
     public function indexTest() 
     {
+        if (!Auth::check()) {
+            return Route::redirect(Route::path("login"));
+        }
+
         $categories = Category::all();
 
         return include("./resources/view/web/test/index.php");
@@ -125,6 +129,11 @@ class HomeController
         $this->saveTestResult($exam->id, $user->id, $correctCount/$questionCount*10);
 
         return include("./resources/view/web/test/result.php");
+    }
+
+    public function historyTest()
+    {
+        return include("./resources/view/web/test/history.php");
     }
 
     private function saveTestResult($examId, $userId, $result)

@@ -32,9 +32,9 @@ require_once "./app/Route.php";
                         Nền tảng thi trực tuyến số 1 Việt Nam dành cho mọi lứa tuổi
                     </div>
                     <div class="body__content-btnWrap">
-                        <button class="custom-btn btn-9"><a href="<?= Route::path('test.index') ?>">
-                            Click Me :V
-                        </a></button>
+                        <a class="custom-btn btn-9" href="<?= Route::path('test.index') ?>" style="text-decoration: none;">
+                            Thi ngay
+                        </a>
                     </div>
                     <div class="body__content-bottom">
                         <img src="./resources/images/main/home/bg-overlay.png" alt="">
