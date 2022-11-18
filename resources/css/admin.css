@@ -6,6 +6,10 @@
     user-select: none;
 }
 
+body {
+    line-height: none;
+}
+
 :root{
     --heightHeader: 60px;
     --heightFooter: 200px;
@@ -116,7 +120,7 @@
 }
 
 .content__main{
-    margin-top: 60px;
+    margin-top: 84px;
     padding: 15px;
     display: none;
 }
@@ -171,8 +175,8 @@ button:hover{
 .list__action {
     display: flex;
     justify-content: space-around;
-    height: 75px;
-    padding: 20px 8px;
+    height: 94px;
+    padding: 28px 8px;
 }
 
 .list__action a {
@@ -202,6 +206,12 @@ button:hover{
 h3.sidebar__title {
     padding: 0 10px 10px;
     letter-spacing: 1.5px;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.body__sidebar_list a {
+    text-decoration: none;
 }
 
 textarea#content {

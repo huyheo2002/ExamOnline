@@ -77,7 +77,7 @@ require_once "./app/Route.php";
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="<?= Route::path("profile.edit") ?>" style="font-size: 16px;"> Chỉnh sửa </a>
+                        <a href="<?= Route::path("profile.edit") ?>" style="font-size: 16px;" class="btnEdit"> Chỉnh sửa </a>
                     </div>
                 </div>
 

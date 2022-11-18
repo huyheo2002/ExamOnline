@@ -1,3 +1,8 @@
+<?php
+require_once "./app/Route.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,8 +49,10 @@
                 <div class="other">
                     <button class="btn submits frgt-pass">Forgot Password</button>
                     <button class="btn submits sign-up">
-                        Sign Up 
-                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                        <a href=<?= Route::path('register') ?> style="width: 100%; height: 100%; display: block; line-height: 48px; text-decoration: none; color: #252537;">
+                            Sign Up 
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                        </a>
                     </button>
                 </div>
             </div>        

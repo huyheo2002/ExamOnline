@@ -32,8 +32,8 @@ require_once "./app/Auth.php";
                             <th style="width: 5%">Id</th>
                             <th style="width: 30%">Tên</th>
                             <th style="width: 20%">Danh mục</th>
-                            <th style="width: 5%">Tạo bởi</th>
-                            <th style="width: 40%">Hoạt động</th>
+                            <th style="width: 15%">Tạo bởi</th>
+                            <th style="width: 30%">Hoạt động</th>
                         </tr>
                         <?php
                         if (!empty($exams)) {

@@ -1,0 +1,35 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* frm admin */
+.content__title {
+    margin-bottom: 0;
+}
+
+th {
+    text-align: center;
+}
+
+input {
+    font-size: revert;
+}
+
+textarea {
+    resize: none;
+}

@@ -61,7 +61,7 @@ require_once "./app/models/User.php";
                                 ?>
                                 <div class="item">
                                     <label for="role_id">Vai trò :</label>
-                                    <select name="role_id" id="role_id">
+                                    <select name="role_id" id="role_id" style="padding: 5px; font-size: 14px;">
                                         <?php 
                                             if(!empty($roles)) {
                                                 foreach($roles as $role) {                                                                                   

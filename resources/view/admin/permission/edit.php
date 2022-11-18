@@ -46,7 +46,7 @@ require_once "./app/Route.php";
                                 </div>
                                 <div class="item">
                                     <label for="name">Nhóm</label>
-                                    <select name="permission_group_id" id="permission_group_id">
+                                    <select name="permission_group_id" id="permission_group_id" style="padding: 5px; font-size: 14px;">
                                         <?php
                                         if (!empty($permissionGroups)) {
                                             foreach ($permissionGroups as $permissionGroup) {

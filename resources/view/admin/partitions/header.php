@@ -23,7 +23,6 @@ require_once "./app/models/Role.php";
                 ?>
                 <a class="dropdown-item" href="<?= Route::path('profile.show') ?>">Hồ sơ của bạn</a>
                 <a class="dropdown-item" href="<?= Route::path('test.history') ?>">Lịch sử làm bài của bạn</a>
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?= Route::path('logout') ?>">Đăng xuất</a>
             </div>
         </li>

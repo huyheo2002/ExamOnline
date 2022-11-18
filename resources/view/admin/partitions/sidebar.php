@@ -5,7 +5,8 @@ require_once "./app/Gate.php";
 
 <div class="body__sidebar">
     <div class="body__sidebar_logo">
-        <a href="<?= Route::root() ?>">
+        <!-- <?= Route::root() ?> -->
+        <a href="#">
             <img src="./resources/images/main/logo/logoHuyExam-nobg.png" alt="">
         </a>
     </div>
@@ -60,9 +61,6 @@ require_once "./app/Gate.php";
         <?php
         }
         ?>
-    </ul>
-    <h3 class="sidebar__title">Quản lý ngân hàng đề thi</h3>
-    <ul class="body__sidebar_list">
         <?php
         if (Gate::can("viewAny-category")) {
         ?>
@@ -73,6 +71,10 @@ require_once "./app/Gate.php";
         <?php
         }
         ?>
+    </ul>
+    <h3 class="sidebar__title">Quản lý ngân hàng đề thi</h3>
+    <ul class="body__sidebar_list">
+        <!-- ql danh mục lên -->
         <?php
         if (Gate::can("viewAny-question")) {
         ?>

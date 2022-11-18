@@ -12,7 +12,7 @@ class RegisterController
             return Route::redirect(Route::root());
         }
         
-        return include ("./resources/view/auth/frmRegister.html");
+        return include ("./resources/view/auth/frmRegister.php");
     }
 
     public function register()

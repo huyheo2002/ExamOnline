@@ -99,8 +99,8 @@ require_once "./app/Route.php";
 
 
                     <div class="content__listBtn">
-                        <a class="content__btnExit" href="<?= Route::path("test.index") ?>">Thoát</a>
                         <input type="submit" value="Nộp bài" class="content__btnAdd">
+                        <a class="content__btnExit" href="<?= Route::path("test.index") ?>">Thoát</a>
                     </div>
                 </form>
 

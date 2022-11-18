@@ -33,7 +33,7 @@ class LoginController
             return Route::redirect($this->redirectPath());
         }
         
-        return include ("./resources/view/auth/frmLogin.html");
+        return include ("./resources/view/auth/frmLogin.php");
     }
 
     public function login()

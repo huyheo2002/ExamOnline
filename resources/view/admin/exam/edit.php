@@ -43,7 +43,7 @@ require_once "./app/Route.php";
                                 </div>
                                 <div class="item">
                                     <label for="category_id">Danh mục :</label>
-                                    <select name="category_id" id="category_id">
+                                    <select name="category_id" id="category_id" style="padding: 5px; font-size: 14px;">
                                         <option value="" disabled hidden>---</option>
                                         <?php
                                         if (!empty($categories)) {

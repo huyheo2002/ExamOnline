@@ -53,14 +53,14 @@
                         <div class="field-set">
                             <div class="input-wrap">
                                 <span class="input-item">
-                                    <i class="fa fa-user-circle"></i>
+                                    <i class="fa-solid fa-signature"></i>
                                 </span>
                                 <input class="form-input" id="txt-input" type="text" placeholder="@Name" name= "name" required>
                             </div>
                             <br> 
                             <div class="input-wrap">
                                 <span class="input-item">
-                                    <i class="fa fa-user-circle"></i>
+                                    <i class="fa-solid fa-envelope"></i>
                                 </span>
                                 <input class="form-input" id="txt-input" type="text" placeholder="@Email" name= "email" required>
                             </div>
@@ -68,7 +68,7 @@
                             
                             <div class="input-wrap">
                                 <span class="input-item">
-                                    <i class="fa fa-user-circle"></i>
+                                    <i class="fa-solid fa-camera"></i>
                                 </span>
                                 <input class="form-input" id="txt-input" type="file" placeholder="@Avatar" name= "avatar" required>
                             </div>
@@ -82,12 +82,12 @@
                               
                 
             
-                <div class="other">
+                <!-- <div class="other">
                     <button class="btn submits sign-up">
                         Sign Up 
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                     </button>
-                </div>
+                </div> -->
             </div>        
         </form>
     </div>
